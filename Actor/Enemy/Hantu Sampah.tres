@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyTypeData" load_steps=2 format=3 uid="uid://bxkkbbyounw6b"]
+
+[ext_resource type="Script" uid="uid://ddbio4odc6m4j" path="res://Actor/Enemy/EnemyTypeData.gd" id="1_3cohk"]
+
+[resource]
+script = ExtResource("1_3cohk")
+type_name = ""
+spawn_weight = 1.0
+unlock_wave = 1
+max_wave = 0
+wave_weight_curve = Array[float]([])
+initial_pool_size = 10
+max_pool_size = 50
+override_stats = false
+base_health = 0.0
+base_damage = 0
+base_speed = 0.0
+metadata/_custom_type_script = "uid://ddbio4odc6m4j"
