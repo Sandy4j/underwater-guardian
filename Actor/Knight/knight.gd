@@ -33,20 +33,33 @@ func _physics_process(delta):
 		
 		_check_boundaries()
 
-func _choose_new_direction():
+func _choose_new_direction() -> void:
 	if rng.randf() < pause_chance:
 		is_paused = true
 		current_direction = Vector2.ZERO
 		return
-	
+
 	is_paused = false
-	
-	var angle = rng.randf() * TAU  # TAU is 2*PI in Godot 4
+
+	var pos = global_position
+	var angle: float
+
+	if pos.x <= BOUNDARY_LEFT + 100:
+		angle = rng.randf_range(-PI / 4, PI / 4)
+	elif pos.x >= BOUNDARY_RIGHT - 100:
+		angle = rng.randf_range(3 * PI / 4, 5 * PI / 4)
+	elif pos.y <= BOUNDARY_TOP + 100:
+		angle = rng.randf_range(PI / 4, 3 * PI / 4)
+	elif pos.y >= BOUNDARY_BOTTOM - 100:
+		angle = rng.randf_range(-3 * PI / 4, -PI / 4)
+	else:
+		angle = rng.randf() * TAU
+
 	current_direction = Vector2(cos(angle), sin(angle)).normalized()
 
 func _check_boundaries():
-	var pos = global_position
-	var direction_changed = false
+	var pos                     = global_position
+	var direction_changed: bool = false
 	
 	if pos.x <= BOUNDARY_LEFT and current_direction.x < 0:
 		current_direction.x = abs(current_direction.x)
@@ -80,9 +93,9 @@ func _draw():
 	if not is_paused and current_direction != Vector2.ZERO:
 		draw_line(Vector2.ZERO, current_direction * 50, Color.RED, 2.0)
 
-		var arrow_size = 10
-		var arrow_angle = 0.5
-		var end_pos = current_direction * 50
+		var arrow_size: int    = 10
+		var arrow_angle: float = 0.5
+		var end_pos            = current_direction * 50
 		var left_wing = end_pos + Vector2(cos(current_direction.angle() + PI - arrow_angle), sin(current_direction.angle() + PI - arrow_angle)) * arrow_size
 		var right_wing = end_pos + Vector2(cos(current_direction.angle() + PI + arrow_angle), sin(current_direction.angle() + PI + arrow_angle)) * arrow_size
 		draw_line(end_pos, left_wing, Color.RED, 2.0)
