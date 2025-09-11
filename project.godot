@@ -18,12 +18,19 @@ config/icon="res://icon.svg"
 [autoload]
 
 ProjectileManager="*res://Script/ProjectileManager.gd"
+GlobalSignal="*res://Global_Signal.gd"
 
 [file_customization]
 
 folder_colors={
 "res://Shader/": "red"
 }
+
+[global_group]
+
+Enemy=""
+Player=""
+buff=""
 
 [input]
 

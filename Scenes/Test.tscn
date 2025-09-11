@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://37k68oj0vkfn"]
+
+[ext_resource type="Script" uid="uid://3wodbns144l0" path="res://Scenes/test.gd" id="1_efk68"]
+[ext_resource type="PackedScene" uid="uid://dbpochnprurhw" path="res://Actor/Knight/Knight.tscn" id="1_gxb1y"]
+[ext_resource type="PackedScene" uid="uid://debt6gawkcwi3" path="res://Actor/player/player.tscn" id="2_0dy5s"]
+[ext_resource type="Script" uid="uid://3f2eki0pwusm" path="res://Buff/buff_drop.gd" id="4_06fis"]
+[ext_resource type="Script" uid="uid://fkxnfxlr0fy1" path="res://Buff/buff_manager.gd" id="4_mma61"]
+[ext_resource type="Texture2D" uid="uid://c61itc8uj4k66" path="res://icon.svg" id="5_mma61"]
+[ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/Buff_Data.gd" id="6_mma61"]
+
+[sub_resource type="Resource" id="Resource_mma61"]
+script = ExtResource("6_mma61")
+name = "Geni"
+tipe = 1
+damage = 10
+metadata/_custom_type_script = "uid://yq3gv7m4sqn6"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ki7sg"]
+radius = 18.0
+
+[sub_resource type="Resource" id="Resource_ki7sg"]
+script = ExtResource("6_mma61")
+name = "asdsa"
+tipe = 2
+damage = 5
+metadata/_custom_type_script = "uid://yq3gv7m4sqn6"
+
+[node name="Test" type="Node2D"]
+script = ExtResource("1_efk68")
+
+[node name="Knight" parent="." instance=ExtResource("1_gxb1y")]
+position = Vector2(259, 219)
+
+[node name="BuffManager" type="Node2D" parent="Knight"]
+script = ExtResource("4_mma61")
+
+[node name="Camera2D" type="Camera2D" parent="Knight" groups=["Enemy"]]
+position = Vector2(222, 75)
+
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("2_0dy5s")]
+position = Vector2(364, 394)
+
+[node name="Buff" type="Node2D" parent="."]
+position = Vector2(615, 316)
+script = ExtResource("4_06fis")
+Buff = SubResource("Resource_mma61")
+
+[node name="Sprite2D" type="Sprite2D" parent="Buff"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_mma61")
+
+[node name="Area2D" type="Area2D" parent="Buff" groups=["buff"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buff/Area2D"]
+shape = SubResource("CircleShape2D_ki7sg")
+
+[node name="Buff2" type="Node2D" parent="."]
+position = Vector2(486, 203)
+script = ExtResource("4_06fis")
+Buff = SubResource("Resource_ki7sg")
+
+[node name="Sprite2D" type="Sprite2D" parent="Buff2"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_mma61")
+
+[node name="Area2D" type="Area2D" parent="Buff2" groups=["buff"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buff2/Area2D"]
+shape = SubResource("CircleShape2D_ki7sg")
+
+[connection signal="body_entered" from="Buff/Area2D" to="Buff" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Buff/Area2D" to="Buff" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Buff2/Area2D" to="Buff2" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Buff2/Area2D" to="Buff2" method="_on_area_2d_body_exited"]

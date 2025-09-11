@@ -2,14 +2,13 @@ extends CharacterBody2D
 
 @export var speed: float = 300.0
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var buf_drop:Buff_Data 
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("grab"):
-		grab_buff()
+		grab_buff(buf_drop)
+		buf_drop = null
 
 func _physics_process(delta: float) -> void:
 	# Get input direction
@@ -31,5 +30,16 @@ func _physics_process(delta: float) -> void:
 	velocity = input_direction * speed
 	move_and_slide()
 	
-func grab_buff():
-	pass	
+
+func grab_buff(buff:Buff_Data):
+	GlobalSignal.emit_signal("activate_buff",buf_drop)
+
+
+func _on_colect_area_entered(area: Area2D) -> void:
+	if area.get_parent() is Buff_Drop:
+		buf_drop = area.get_parent().Buff
+		print("kenek")
+
+
+func _on_colect_area_exited(area: Area2D) -> void:
+	pass # Replace with function body.

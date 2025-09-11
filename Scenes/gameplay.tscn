@@ -84,6 +84,7 @@ limit_bottom = 1200
 [node name="Player" parent="." instance=ExtResource("1_hf1ha")]
 position = Vector2(938, 427)
 collision_layer = 8
+speed = 300.0
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 layer = 10
@@ -98,7 +99,6 @@ grow_vertical = 2
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("5_r8bcl")
-enemy_scenes = null
 spawn_radius = null
 spawn_distance_from_player = null
 max_enemies_on_screen = null
