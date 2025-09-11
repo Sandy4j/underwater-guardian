@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://dty63rhik8hfj"]
+
+[ext_resource type="PackedScene" uid="uid://debt6gawkcwi3" path="res://Actor/player/player.tscn" id="1_hf1ha"]
+[ext_resource type="PackedScene" uid="uid://dbpochnprurhw" path="res://Actor/Knight/Knight.tscn" id="2_wbxth"]
+
+[node name="Gameplay" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 2200.0
+offset_bottom = 1200.0
+color = Color(0.0666667, 0.729412, 1, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_hf1ha")]
+position = Vector2(1355, 604)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 941.0
+offset_top = 946.0
+offset_right = 1591.0
+offset_bottom = 1492.0
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = -495.0
+offset_top = 483.0
+offset_right = 155.0
+offset_bottom = 1029.0
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+offset_left = 337.0
+offset_top = -386.0
+offset_right = 987.0
+offset_bottom = 160.0
+
+[node name="ColorRect5" type="ColorRect" parent="."]
+offset_left = 1995.0
+offset_top = 182.0
+offset_right = 2645.0
+offset_bottom = 728.0
+
+[node name="Knight" parent="." instance=ExtResource("2_wbxth")]
+
+[node name="Camera2D" type="Camera2D" parent="Knight"]
+limit_left = 0
+limit_top = 0
+limit_right = 2200
+limit_bottom = 1200
