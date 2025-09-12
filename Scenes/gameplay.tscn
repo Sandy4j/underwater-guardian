@@ -84,7 +84,6 @@ limit_bottom = 1200
 [node name="Player" parent="." instance=ExtResource("1_hf1ha")]
 position = Vector2(938, 427)
 collision_layer = 8
-speed = 300.0
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 layer = 10

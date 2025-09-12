@@ -4,15 +4,20 @@ class_name Buff_Drop
 @export var Buff:Buff_Data
 @onready var Text = $Sprite2D
 @onready var Area = $Area2D
+@onready var Collect = $Label
 
 func _ready() -> void:
-	pass
+	Collect.hide()
 
+func show_label():
+	Collect.show()
 
+func hide_label():
+	Collect.hide()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('Player'):
-		queue_free()
+		pass
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:

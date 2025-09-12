@@ -13,6 +13,7 @@ script = ExtResource("6_mma61")
 name = "Geni"
 tipe = 1
 damage = 10
+duration = 60
 metadata/_custom_type_script = "uid://yq3gv7m4sqn6"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ki7sg"]
@@ -23,6 +24,7 @@ script = ExtResource("6_mma61")
 name = "asdsa"
 tipe = 2
 damage = 5
+duration = 10
 metadata/_custom_type_script = "uid://yq3gv7m4sqn6"
 
 [node name="Test" type="Node2D"]
@@ -34,6 +36,30 @@ position = Vector2(259, 219)
 [node name="BuffManager" type="Node2D" parent="Knight"]
 script = ExtResource("4_mma61")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Knight/BuffManager"]
+
+[node name="ProgressBar1" type="ProgressBar" parent="Knight/BuffManager/CanvasLayer"]
+modulate = Color(1, 0, 0, 1)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -322.0
+offset_top = 28.0
+offset_right = -30.0
+offset_bottom = 55.0
+grow_horizontal = 0
+
+[node name="ProgressBar2" type="ProgressBar" parent="Knight/BuffManager/CanvasLayer"]
+modulate = Color(0.541176, 0, 1, 1)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -322.0
+offset_top = 71.0
+offset_right = -30.0
+offset_bottom = 98.0
+grow_horizontal = 0
+
 [node name="Camera2D" type="Camera2D" parent="Knight" groups=["Enemy"]]
 position = Vector2(222, 75)
 
@@ -41,7 +67,7 @@ position = Vector2(222, 75)
 position = Vector2(364, 394)
 
 [node name="Buff" type="Node2D" parent="."]
-position = Vector2(615, 316)
+position = Vector2(849, 444)
 script = ExtResource("4_06fis")
 Buff = SubResource("Resource_mma61")
 
@@ -54,8 +80,20 @@ texture = ExtResource("5_mma61")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buff/Area2D"]
 shape = SubResource("CircleShape2D_ki7sg")
 
+[node name="Label" type="Label" parent="Buff"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -29.0
+offset_top = -38.0
+offset_right = 29.0
+offset_bottom = -15.0
+grow_horizontal = 2
+text = "Ambil"
+horizontal_alignment = 1
+
 [node name="Buff2" type="Node2D" parent="."]
-position = Vector2(486, 203)
+position = Vector2(18, 390)
 script = ExtResource("4_06fis")
 Buff = SubResource("Resource_ki7sg")
 
@@ -67,6 +105,18 @@ texture = ExtResource("5_mma61")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buff2/Area2D"]
 shape = SubResource("CircleShape2D_ki7sg")
+
+[node name="Label" type="Label" parent="Buff2"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -29.0
+offset_top = -38.0
+offset_right = 29.0
+offset_bottom = -15.0
+grow_horizontal = 2
+text = "Ambil"
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="Buff/Area2D" to="Buff" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Buff/Area2D" to="Buff" method="_on_area_2d_body_exited"]

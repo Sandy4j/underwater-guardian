@@ -49,6 +49,7 @@ script = ExtResource("1_iryli")
 
 [node name="Sword" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
+position = Vector2(150, 2)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_bgkan")
 
@@ -62,5 +63,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_rxb08")
 }
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="Sword/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Sword/Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

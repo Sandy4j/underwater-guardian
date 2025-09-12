@@ -2,13 +2,13 @@ extends CharacterBody2D
 
 @export var speed: float = 300.0
 
-var buf_drop:Buff_Data 
-
+var collect_buffs:Array[Buff_Drop]
+var cur_buff:Buff_Data 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("grab"):
-		grab_buff(buf_drop)
-		buf_drop = null
+		if cur_buff:
+			grab_buff(cur_buff)
 
 func _physics_process(delta: float) -> void:
 	# Get input direction
@@ -31,15 +31,21 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 
-func grab_buff(buff:Buff_Data):
-	GlobalSignal.emit_signal("activate_buff",buf_drop)
+func Collecting_Buff():
+	var buffs = collect_buffs.get(0)
+	buffs.hide_label()
+	cur_buff = buffs.Buff
 
+func grab_buff(buff:Buff_Data):
+	GlobalSignal.emit_signal("activate_buff",cur_buff)
 
 func _on_colect_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Buff_Drop:
-		buf_drop = area.get_parent().Buff
-		print("kenek")
-
+		var buff = area.get_parent()
+		collect_buffs.append(buff)
 
 func _on_colect_area_exited(area: Area2D) -> void:
-	pass # Replace with function body.
+	if area.get_parent() is Buff_Drop:
+		var buff = area.get_parent()
+		collect_buffs.erase(buff)
+		buff.hide_label()
