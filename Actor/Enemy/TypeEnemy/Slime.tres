@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyTypeData" load_steps=3 format=3 uid="uid://73pf0mcvatdk"]
+
+[ext_resource type="PackedScene" uid="uid://b0xas4siualyq" path="res://Actor/Enemy/melee.tscn" id="1_f7pk7"]
+[ext_resource type="Script" uid="uid://b7lkjpij0af1x" path="res://Actor/Enemy/TypeEnemy/EnemyTypeData.gd" id="1_gue6p"]
+
+[resource]
+script = ExtResource("1_gue6p")
+type_name = "Limbah Slime"
+scene = ExtResource("1_f7pk7")
+spawn_weight = 1.0
+unlock_wave = 1
+max_wave = 0
+wave_weight_curve = Array[float]([])
+initial_pool_size = 15
+max_pool_size = 60
+override_stats = true
+base_health = 150.0
+base_damage = 25
+base_speed = 150.0
+metadata/_custom_type_script = "uid://b7lkjpij0af1x"

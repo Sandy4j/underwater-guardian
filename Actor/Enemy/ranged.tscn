@@ -10,7 +10,9 @@ radius = 63.7887
 [sub_resource type="CircleShape2D" id="CircleShape2D_jtsrd"]
 radius = 93.9042
 
-[node name="Ranged" type="CharacterBody2D"]
+[node name="Ranged" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_exr1r")
 projectile_scene = ExtResource("2_jtsrd")
 

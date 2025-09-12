@@ -5,6 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3i2d"]
 
 [node name="Area2D" type="Area2D"]
+collision_layer = 4
 script = ExtResource("1_c2h3p")
 
 [node name="ColorRect" type="ColorRect" parent="."]

@@ -12,11 +12,11 @@ var damage_amount: int
 var velocity: Vector2
 var life_timer: float
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite = $ColorRect
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 func _ready():
-	body_entered.connect(_on_body_entered)
+	pass
 
 func setup(target_node: Node2D, damage: int):
 	target = target_node

@@ -16,14 +16,6 @@ signal enemy_spawned(enemy: BaseEnemy)
 @export var max_enemies_on_screen: int = 50
 @export var spawn_outside_screen: bool = true
 
-@export_group("Boundary Settings")
-@export var use_boundaries: bool = true
-@export var boundary_left: float = 0.0
-@export var boundary_top: float = 0.0
-@export var boundary_right: float = 2200.0
-@export var boundary_bottom: float = 1200.0
-@export var boundary_margin: float = 50.0
-
 @export_group("Wave Configuration")
 @export var base_spawn_interval: float = 2.0
 @export var enemies_per_wave: int = 10
@@ -38,6 +30,12 @@ var is_spawning: bool = false
 var player: Node2D
 var spawn_timer: Timer
 var camera: Camera2D
+var use_boundaries: bool = true
+var boundary_left: float = 0.0
+var boundary_top: float = 0.0
+var boundary_right: float = 4320.0
+var boundary_bottom: float = 2430.0
+var boundary_margin: float = 50.0
 
 # Object pools - one for each enemy type
 var enemy_pools: Dictionary = {}
@@ -117,7 +115,7 @@ func setup_spawner():
 	print("EnemySpawner: Spawn timer created")
 
 func find_player():
-	player = get_tree().get_first_node_in_group("player")
+	player = get_tree().get_first_node_in_group("knight")
 	if player:
 		print("EnemySpawner: Player found: ", player.name)
 	else:
@@ -412,19 +410,19 @@ func get_pool_status() -> String:
 		status += "Projectiles - Active: %d, Available: %d" % [projectile_pool.get_active_count(), projectile_pool.get_available_count()]
 	return status
 
-# Debug visualization
+
 func _draw():
 	if Engine.is_editor_hint() or not use_boundaries:
 		return
 
 	var rect = Rect2(
-				   Vector2(boundary_left, boundary_top),
-				   Vector2(boundary_right - boundary_left, boundary_bottom - boundary_top)
-			   )
+		Vector2(boundary_left, boundary_top),
+		Vector2(boundary_right - boundary_left, boundary_bottom - boundary_top)
+	)
 	draw_rect(rect, Color.RED, false, 2.0)
 
 	var margin_rect = Rect2(
-						  Vector2(boundary_left - boundary_margin, boundary_top - boundary_margin),
-						  Vector2(boundary_right - boundary_left + boundary_margin * 2, boundary_bottom - boundary_top + boundary_margin * 2)
-					  )
+		Vector2(boundary_left - boundary_margin, boundary_top - boundary_margin),
+		Vector2(boundary_right - boundary_left + boundary_margin * 2, boundary_bottom - boundary_top + boundary_margin * 2)
+	)
 	draw_rect(margin_rect, Color.YELLOW, false, 1.0)

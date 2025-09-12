@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyTypeData" load_steps=3 format=3 uid="uid://bwcvtquhktior"]
+
+[ext_resource type="Script" uid="uid://b7lkjpij0af1x" path="res://Actor/Enemy/TypeEnemy/EnemyTypeData.gd" id="1_l7fcl"]
+[ext_resource type="PackedScene" uid="uid://bt0ywn542fkuv" path="res://Actor/Enemy/ranged.tscn" id="1_ouq25"]
+
+[resource]
+script = ExtResource("1_l7fcl")
+type_name = "Abyssal Leviathan Fragment "
+scene = ExtResource("1_ouq25")
+spawn_weight = 0.3
+unlock_wave = 1
+max_wave = 0
+wave_weight_curve = Array[float]([])
+initial_pool_size = 15
+max_pool_size = 65
+override_stats = true
+base_health = 200.0
+base_damage = 30
+base_speed = 50.0
+metadata/_custom_type_script = "uid://b7lkjpij0af1x"

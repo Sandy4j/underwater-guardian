@@ -1,52 +1,55 @@
-[gd_scene load_steps=9 format=3 uid="uid://dty63rhik8hfj"]
+[gd_scene load_steps=14 format=3 uid="uid://dty63rhik8hfj"]
 
 [ext_resource type="PackedScene" uid="uid://debt6gawkcwi3" path="res://Actor/player/player.tscn" id="1_hf1ha"]
-[ext_resource type="Shader" uid="uid://bq1owm4ufe0t4" path="res://Shader/UnderwaterBG.gdshader" id="1_kwrm5"]
+[ext_resource type="Script" uid="uid://boy4i7nwg0fo4" path="res://Script/gameplay.gd" id="1_puebw"]
+[ext_resource type="Texture2D" uid="uid://bueh2qr4jlbyt" path="res://Asset/1757672517786.png" id="2_puebw"]
 [ext_resource type="PackedScene" uid="uid://dbpochnprurhw" path="res://Actor/Knight/Knight.tscn" id="2_wbxth"]
 [ext_resource type="Shader" uid="uid://fc1ii2dpsk3r" path="res://Shader/Underwater Effect.gdshader" id="4_r8bcl"]
+[ext_resource type="Script" uid="uid://dfhsljbili184" path="res://Script/EnemySpawner.gd" id="5_urrcd"]
+[ext_resource type="Script" uid="uid://b7lkjpij0af1x" path="res://Actor/Enemy/TypeEnemy/EnemyTypeData.gd" id="6_puebw"]
+[ext_resource type="Resource" uid="uid://73pf0mcvatdk" path="res://Actor/Enemy/TypeEnemy/Slime.tres" id="7_5h7oy"]
+[ext_resource type="Resource" uid="uid://bwcvtquhktior" path="res://Actor/Enemy/TypeEnemy/Abyssal.tres" id="8_ltefv"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwrm5"]
-shader = ExtResource("1_kwrm5")
-shader_parameter/deep_water_color = Color(0, 0.1, 0.3, 1)
-shader_parameter/shallow_water_color = Color(0, 0.4, 0.7, 1)
-shader_parameter/wave_amplitude = 20.0
-shader_parameter/wave_frequency = 0.02
-shader_parameter/wave_speed = 0.5
-shader_parameter/particle_density = 0.005
-shader_parameter/current_strength = 0.415
+[sub_resource type="Gradient" id="Gradient_puebw"]
+interpolation_color_space = 1
+offsets = PackedFloat32Array(0, 0.16208, 0.807339, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0703364, 0.0703364, 0.0703364, 1, 0.760663, 0.760663, 0.760663, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_kwrm5"]
 noise_type = 2
-fractal_type = 2
 fractal_weighted_strength = 1.0
 cellular_distance_function = 1
 domain_warp_enabled = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r8bcl"]
 seamless = true
-seamless_blend_skirt = 0.388
+seamless_blend_skirt = 0.448
+color_ramp = SubResource("Gradient_puebw")
 noise = SubResource("FastNoiseLite_kwrm5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1qnfl"]
 shader = ExtResource("4_r8bcl")
-shader_parameter/water_tint = Color(0.2, 0.6, 0.8, 0.3)
+shader_parameter/water_tint = Color(0.0862745, 0, 0.8, 0.301961)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_r8bcl")
 shader_parameter/wave_speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 0.005
 shader_parameter/caustic_strength = 0.429
 shader_parameter/caustic_speed = Vector2(0.05, 0.08)
+shader_parameter/water_depth = 0.8
+shader_parameter/deep_color = Color(0.02, 0.1, 0.2, 0.9)
+shader_parameter/visibility_range = 0.4
+shader_parameter/sediment_density = 0.2
+shader_parameter/current_strength = 0.03
 
 [node name="Gameplay" type="Node2D"]
+script = ExtResource("1_puebw")
 
 [node name="Space" type="Node2D" parent="."]
 position = Vector2(941, 946)
 
-[node name="ColorRect" type="ColorRect" parent="Space"]
-material = SubResource("ShaderMaterial_kwrm5")
-offset_left = -941.0
-offset_top = -946.0
-offset_right = 1259.0
-offset_bottom = 254.0
+[node name="Sprite2D" type="Sprite2D" parent="Space"]
+position = Vector2(1219, 269)
+texture = ExtResource("2_puebw")
 
 [node name="ColorRect2" type="ColorRect" parent="Space"]
 offset_right = 650.0
@@ -71,21 +74,45 @@ offset_right = 1704.0
 offset_bottom = -218.0
 
 [node name="Knight" parent="." groups=["knight"] instance=ExtResource("2_wbxth")]
-position = Vector2(1130, 530)
+position = Vector2(1646, 731)
 collision_mask = 3
+knockback_force = 1000.0
+enemy_threshold = 1
+knockback_cooldown = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Knight"]
+zoom = Vector2(0.5, 0.5)
 limit_left = 0
 limit_top = 0
-limit_right = 2200
-limit_bottom = 1200
+limit_right = 4320
+limit_bottom = 2430
+limit_smoothed = true
 
 [node name="Player" parent="." instance=ExtResource("1_hf1ha")]
 position = Vector2(938, 427)
-collision_layer = 8
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="WaveLabel" type="Label" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -51.5
+offset_right = 51.5
+offset_bottom = 43.0
+grow_horizontal = 2
+
+[node name="Debug" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -109.0
+offset_bottom = 23.0
+grow_horizontal = 0
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 layer = 10
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Overlay"]
 material = SubResource("ShaderMaterial_1qnfl")
@@ -94,3 +121,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("5_urrcd")
+enemy_types = Array[ExtResource("6_puebw")]([ExtResource("7_5h7oy"), ExtResource("8_ltefv")])
+metadata/_custom_type_script = "uid://dfhsljbili184"
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(4320, 2430)
+gizmo_extents = 400.0
