@@ -7,7 +7,6 @@ signal enemy_damaged(damage: int)
 @export var max_health: float = 100.0
 @export var move_speed: float = 50.0
 @export var damage: int = 10
-@export var detection_range: float = 200.0
 
 var current_health: float
 var player: Node2D
@@ -16,14 +15,11 @@ var is_dead: bool = false
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var damage_area: Area2D = $DamageArea
-@onready var health_bar: ProgressBar = $HealthBar
 
 func _ready():
 	current_health = max_health
 	player = get_tree().get_first_node_in_group("knight")
 	damage_area.body_entered.connect(_on_damage_area_entered)
-	update_health_bar()
-
 func _physics_process(delta):
 	if is_dead or not player:
 		return
@@ -42,7 +38,6 @@ func take_damage(amount: int):
 	
 	current_health -= amount
 	enemy_damaged.emit(amount)
-	update_health_bar()
 	
 	# Visual feedback
 	modulate = Color.RED
@@ -64,10 +59,6 @@ func die():
 	tween.parallel().tween_property(self, "scale", Vector2.ZERO, 0.3)
 	tween.tween_callback(queue_free)
 
-func update_health_bar():
-	if health_bar:
-		health_bar.value = (current_health / max_health) * 100
-
 func _on_damage_area_entered(body):
 	if body.is_in_group("knight"):
 		body.take_damage(damage)
@@ -83,4 +74,3 @@ func reset_state():
 	modulate = Color.WHITE
 	scale = Vector2.ONE
 	velocity = Vector2.ZERO
-	update_health_bar()

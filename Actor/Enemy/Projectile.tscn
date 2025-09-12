@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckmhp7y7jpsau"]
 
-[ext_resource type="Script" uid="uid://e1ermbbhcmgo" path="res://Actor/Enemy/Script/Projectile.gd" id="1_c2h3p"]
+[ext_resource type="Script" uid="uid://e1ermbbhcmgo" path="res://Actor/Enemy/Scripts/Projectile.gd" id="1_c2h3p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3i2d"]
 

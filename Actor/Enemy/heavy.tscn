@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2y8h4pivaxl6"]
+
+[ext_resource type="Script" path="res://Actor/Enemy/Scripts/Heavy.gd" id="1_heavy"]
+[ext_resource type="Texture2D" uid="uid://c61itc8uj4k66" path="res://icon.svg" id="2_heavy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_heavy"]
+radius = 80.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_heavy_damage"]
+radius = 100.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_heavy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.8, 0.4, 0.2, 1)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_heavy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_heavy")
+
+[node name="DamageArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_heavy_damage")

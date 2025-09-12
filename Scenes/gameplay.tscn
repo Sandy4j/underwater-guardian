@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dty63rhik8hfj"]
+[gd_scene load_steps=9 format=3 uid="uid://dty63rhik8hfj"]
 
 [ext_resource type="PackedScene" uid="uid://debt6gawkcwi3" path="res://Actor/player/player.tscn" id="1_hf1ha"]
 [ext_resource type="Shader" uid="uid://bq1owm4ufe0t4" path="res://Shader/UnderwaterBG.gdshader" id="1_kwrm5"]
 [ext_resource type="PackedScene" uid="uid://dbpochnprurhw" path="res://Actor/Knight/Knight.tscn" id="2_wbxth"]
 [ext_resource type="Shader" uid="uid://fc1ii2dpsk3r" path="res://Shader/Underwater Effect.gdshader" id="4_r8bcl"]
-[ext_resource type="Script" uid="uid://ccvls3ce3vf1q" path="res://Actor/Enemy/Script/EnemySpawner.gd" id="5_r8bcl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kwrm5"]
 shader = ExtResource("1_kwrm5")
@@ -71,7 +70,7 @@ offset_top = -764.0
 offset_right = 1704.0
 offset_bottom = -218.0
 
-[node name="Knight" parent="." instance=ExtResource("2_wbxth")]
+[node name="Knight" parent="." groups=["knight"] instance=ExtResource("2_wbxth")]
 position = Vector2(1130, 530)
 collision_mask = 3
 
@@ -95,21 +94,3 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="EnemySpawner" type="Node2D" parent="."]
-script = ExtResource("5_r8bcl")
-spawn_radius = null
-spawn_distance_from_player = null
-max_enemies_on_screen = null
-spawn_outside_screen = null
-use_boundaries = null
-boundary_left = null
-boundary_top = null
-boundary_right = null
-boundary_bottom = null
-boundary_margin = null
-base_spawn_interval = null
-enemies_per_wave = null
-wave_difficulty_multiplier = null
-auto_start = null
-metadata/_custom_type_script = "uid://ccvls3ce3vf1q"

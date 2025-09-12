@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bt0ywn542fkuv"]
+
+[ext_resource type="Script" uid="uid://c4er8338rih14" path="res://Actor/Enemy/Scripts/Ranged.gd" id="1_exr1r"]
+[ext_resource type="Texture2D" uid="uid://c61itc8uj4k66" path="res://icon.svg" id="1_m0m1y"]
+[ext_resource type="PackedScene" uid="uid://ckmhp7y7jpsau" path="res://Actor/Enemy/Projectile.tscn" id="2_jtsrd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_exr1r"]
+radius = 63.7887
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jtsrd"]
+radius = 93.9042
+
+[node name="Ranged" type="CharacterBody2D"]
+script = ExtResource("1_exr1r")
+projectile_scene = ExtResource("2_jtsrd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+texture = ExtResource("1_m0m1y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_exr1r")
+
+[node name="DamageArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_jtsrd")

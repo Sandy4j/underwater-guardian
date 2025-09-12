@@ -20,9 +20,14 @@ config/icon="res://icon.svg"
 ProjectileManager="*res://Script/ProjectileManager.gd"
 GlobalSignal="*res://Global_Signal.gd"
 
+[dotnet]
+
+project/assembly_name="GJ Gametech"
+
 [file_customization]
 
 folder_colors={
+"res://Actor/Enemy/": "purple",
 "res://Shader/": "red"
 }
 
@@ -31,6 +36,7 @@ folder_colors={
 Enemy=""
 Player=""
 buff=""
+knight="ai main character"
 
 [input]
 

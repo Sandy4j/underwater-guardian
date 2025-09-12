@@ -11,7 +11,7 @@ uniform vec2 caustic_speed = vec2(0.05, 0.08);
 
 void fragment() {
     // Create moving noise for waves
-    vec2 wave_uv = UV + wave_speed * TIME;
+    vec2 wave_uv = UV + wave_speed * TIM
     vec2 noise = texture(noise_texture, wave_uv).rg;
     
     // Convert noise from [0,1] to [-1,1] for bidirectional distortion

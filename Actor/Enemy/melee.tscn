@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0xas4siualyq"]
+
+[ext_resource type="Script" uid="uid://b52xdpiu7aqo7" path="res://Actor/Enemy/Scripts/Melee.gd" id="1_8a5dn"]
+[ext_resource type="Texture2D" uid="uid://c61itc8uj4k66" path="res://icon.svg" id="1_50xe4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8a5dn"]
+radius = 64.0078
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_50xe4"]
+radius = 90.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_8a5dn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+texture = ExtResource("1_50xe4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8a5dn")
+
+[node name="DamageArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_50xe4")
