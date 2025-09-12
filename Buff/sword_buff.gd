@@ -11,11 +11,10 @@ func initialize(buff: Buff_Data) -> void:
 	print("Sword buff aktif")
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("damage" + str(damage))
+	print("sword memberikan damage " + str(damage))
+	#if body.has_method("take_damage"):
+		#body.take_damage(damage)
+
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	pass # Replace with function body.
-
-
-func _on_timer_timeout() -> void:
-	queue_free()

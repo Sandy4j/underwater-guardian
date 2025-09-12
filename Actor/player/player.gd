@@ -32,20 +32,28 @@ func _physics_process(delta: float) -> void:
 	
 
 func Collecting_Buff():
-	var buffs = collect_buffs.get(0)
-	buffs.hide_label()
-	cur_buff = buffs.Buff
+	if not collect_buffs.is_empty():
+		var buffs:Buff_Drop = collect_buffs.get(0)
+		buffs.hide_label()
+		cur_buff = buffs.Buff
+		buffs.show_label()
 
 func grab_buff(buff:Buff_Data):
 	GlobalSignal.emit_signal("activate_buff",cur_buff)
+	var buff_node = collect_buffs.get(0)
+	collect_buffs.erase(buff_node)
+	buff_node.queue_free()
 
 func _on_colect_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Buff_Drop:
 		var buff = area.get_parent()
 		collect_buffs.append(buff)
+		Collecting_Buff()
 
 func _on_colect_area_exited(area: Area2D) -> void:
 	if area.get_parent() is Buff_Drop:
 		var buff = area.get_parent()
 		collect_buffs.erase(buff)
 		buff.hide_label()
+		cur_buff = null
+		Collecting_Buff()

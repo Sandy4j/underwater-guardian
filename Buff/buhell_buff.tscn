@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqe1xow443p4k"]
+
+[ext_resource type="Script" uid="uid://cn70yvgruapqf" path="res://Buff/buhell_buff.gd" id="1_pwo3a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kq4yt"]
+radius = 1084.2
+
+[node name="Bullet_Hell" type="Node2D"]
+script = ExtResource("1_pwo3a")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_kq4yt")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="pos1" type="Marker2D" parent="."]
+position = Vector2(0, 50)
+rotation = 3.14159
+
+[node name="pos2" type="Marker2D" parent="."]
+position = Vector2(35, -35)
+rotation = 0.785398
+
+[node name="pos3" type="Marker2D" parent="."]
+position = Vector2(-35, -35)
+rotation = -0.785398
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
