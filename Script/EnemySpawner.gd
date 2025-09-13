@@ -45,7 +45,7 @@ var projectile_pool: ObjectPool
 enum SpawnEdge { TOP, RIGHT, BOTTOM, LEFT }
 
 func _ready():
-	print("EnemySpawner: Initializing...")
+	add_to_group("spawner")
 	setup_pools()
 	setup_spawner()
 	find_player()

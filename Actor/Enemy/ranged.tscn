@@ -1,14 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://bt0ywn542fkuv"]
+[gd_scene load_steps=8 format=3 uid="uid://bt0ywn542fkuv"]
 
 [ext_resource type="Script" uid="uid://c4er8338rih14" path="res://Actor/Enemy/Scripts/Ranged.gd" id="1_exr1r"]
-[ext_resource type="Texture2D" uid="uid://c61itc8uj4k66" path="res://icon.svg" id="1_m0m1y"]
 [ext_resource type="PackedScene" uid="uid://ckmhp7y7jpsau" path="res://Actor/Enemy/Projectile.tscn" id="2_jtsrd"]
+[ext_resource type="Texture2D" uid="uid://fku66nctx1kc" path="res://Asset/Enemy/2/IMG_1469.png" id="3_4758g"]
+[ext_resource type="Texture2D" uid="uid://dn6bshdecsdir" path="res://Asset/Enemy/2/IMG_1470.png" id="4_2iiap"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_exr1r"]
-radius = 63.7887
+[sub_resource type="SpriteFrames" id="SpriteFrames_qurjq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4758g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2iiap")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p077n"]
+radius = 37.0
+height = 158.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jtsrd"]
-radius = 93.9042
+radius = 94.0479
 
 [node name="Ranged" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
@@ -16,12 +32,14 @@ collision_mask = 3
 script = ExtResource("1_exr1r")
 projectile_scene = ExtResource("2_jtsrd")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 0, 1)
-texture = ExtResource("1_m0m1y")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_qurjq")
+animation = &"run"
+frame_progress = 0.667517
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_exr1r")
+shape = SubResource("CapsuleShape2D_p077n")
 
 [node name="DamageArea" type="Area2D" parent="."]
 

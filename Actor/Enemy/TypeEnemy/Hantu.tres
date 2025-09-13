@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyTypeData" load_steps=3 format=3 uid="uid://bqigcgr77m48i"]
+
+[ext_resource type="PackedScene" path="res://Actor/Enemy/meleehantu.tscn" id="1_qoppe"]
+[ext_resource type="Script" uid="uid://b7lkjpij0af1x" path="res://Actor/Enemy/TypeEnemy/EnemyTypeData.gd" id="1_vlx13"]
+
+[resource]
+script = ExtResource("1_vlx13")
+type_name = "HantuSampah"
+scene = ExtResource("1_qoppe")
+spawn_weight = 1.0
+unlock_wave = 1
+max_wave = 0
+wave_weight_curve = Array[float]([])
+initial_pool_size = 15
+max_pool_size = 65
+override_stats = true
+base_health = 200.0
+base_damage = 30
+base_speed = 100.0
+metadata/_custom_type_script = "uid://b7lkjpij0af1x"

@@ -19,6 +19,12 @@ config/icon="res://icon.svg"
 
 ProjectileManager="*res://Script/ProjectileManager.gd"
 GlobalSignal="*res://Global_Signal.gd"
+GameManager="*res://Script/GameManager.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
@@ -37,6 +43,7 @@ Player=""
 buff=""
 knight="ai main character"
 enemy=""
+spawner=""
 
 [input]
 

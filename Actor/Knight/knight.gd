@@ -81,11 +81,9 @@ func _perform_knockback(enemies: Array):
 		if enemy.has_method("apply_knockback"):
 			var knockback_direction = (enemy.global_position - global_position).normalized()
 			enemy.apply_knockback(knockback_direction, knockback_force)
-
-	# Create ring effect
+			
 	_create_knockback_ring()
 	
-	# Knight flash effect
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.CYAN, 0.1)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.2)
