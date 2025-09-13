@@ -1,10 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://debt6gawkcwi3"]
+[gd_scene load_steps=6 format=3 uid="uid://debt6gawkcwi3"]
 
 [ext_resource type="Texture2D" uid="uid://c61itc8uj4k66" path="res://icon.svg" id="1_eh6gq"]
 [ext_resource type="Script" uid="uid://bsio50uruuqgp" path="res://Actor/player/player.gd" id="1_iuyr3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f874d"]
 size = Vector2(59, 60)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lagax"]
+radius = 62.0725
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iuyr3"]
 radius = 37.054
@@ -21,10 +24,29 @@ texture = ExtResource("1_eh6gq")
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_f874d")
 
+[node name="give" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="give"]
+shape = SubResource("CircleShape2D_lagax")
+
 [node name="colect" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="colect"]
 shape = SubResource("CircleShape2D_iuyr3")
 
+[node name="buff" type="Sprite2D" parent="."]
+position = Vector2(0, 13)
+scale = Vector2(0.15, 0.15)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -35.0
+offset_top = -59.0
+offset_right = 36.0
+offset_bottom = -36.0
+text = "Berikan"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="give" to="." method="_on_colect_body_entered"]
+[connection signal="body_exited" from="give" to="." method="_on_colect_body_exited"]
 [connection signal="area_entered" from="colect" to="." method="_on_colect_area_entered"]
 [connection signal="area_exited" from="colect" to="." method="_on_colect_area_exited"]
