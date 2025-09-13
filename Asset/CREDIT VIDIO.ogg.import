@@ -3,11 +3,12 @@
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
 uid="uid://ccbc0oeavlory"
-valid=false
+path="res://.godot/imported/CREDIT VIDIO.ogg-89947f5f00882dee17a671ce0a00588e.oggvorbisstr"
 
 [deps]
 
 source_file="res://Asset/CREDIT VIDIO.ogg"
+dest_files=["res://.godot/imported/CREDIT VIDIO.ogg-89947f5f00882dee17a671ce0a00588e.oggvorbisstr"]
 
 [params]
 

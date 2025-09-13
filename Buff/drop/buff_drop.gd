@@ -13,7 +13,7 @@ func init(buff:Buff_Data):
 func _ready() -> void:
 	Collect.hide()
 	Text.texture = Buff.sprite
-	col.shape.radius = Buff.sprite.get_height()
+	col.shape.radius = Buff.sprite.get_height() * Text.scale.x
 
 func show_label():
 	Collect.show()

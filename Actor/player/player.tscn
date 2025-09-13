@@ -1,28 +1,73 @@
-[gd_scene load_steps=6 format=3 uid="uid://debt6gawkcwi3"]
+[gd_scene load_steps=13 format=3 uid="uid://debt6gawkcwi3"]
 
-[ext_resource type="Texture2D" uid="uid://c61itc8uj4k66" path="res://icon.svg" id="1_eh6gq"]
 [ext_resource type="Script" uid="uid://bsio50uruuqgp" path="res://Actor/player/player.gd" id="1_iuyr3"]
+[ext_resource type="Texture2D" uid="uid://d1xdli4l116gs" path="res://Actor/Kucing Biasa/IMG_1457.png" id="2_1ax3n"]
+[ext_resource type="Texture2D" uid="uid://cyaptba1vefk" path="res://Actor/Kucing Biasa/IMG_1458.png" id="3_l0ysg"]
+[ext_resource type="Texture2D" uid="uid://c7igh2lojxs84" path="res://Actor/Kucing Biasa/IMG_1459.png" id="4_77uhk"]
+[ext_resource type="Texture2D" uid="uid://cusjrlh21ii2k" path="res://Actor/Kucing Hold/IMG_1460.png" id="5_8ku4h"]
+[ext_resource type="Texture2D" uid="uid://d2ii7ep1lhj2k" path="res://Actor/Kucing Hold/IMG_1461.png" id="6_asq2g"]
+[ext_resource type="Texture2D" uid="uid://n5kipgm41map" path="res://Actor/Kucing Hold/IMG_1462.png" id="7_rncu2"]
+[ext_resource type="Texture2D" uid="uid://bnqojj6rs3mme" path="res://Asset/Buff/Buff Ice.png" id="8_asq2g"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f874d"]
-size = Vector2(59, 60)
+[sub_resource type="SpriteFrames" id="SpriteFrames_8ku4h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1ax3n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_l0ysg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_77uhk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_l0ysg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_8ku4h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_asq2g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rncu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_asq2g")
+}],
+"loop": true,
+"name": &"holding",
+"speed": 4.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ku4h"]
+radius = 36.0
+height = 156.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lagax"]
-radius = 62.0725
+radius = 117.273
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iuyr3"]
-radius = 37.054
+radius = 80.0062
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 8
 script = ExtResource("1_iuyr3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_eh6gq")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_8ku4h")
+frame_progress = 0.963639
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_f874d")
+position = Vector2(-7, -11)
+shape = SubResource("CapsuleShape2D_8ku4h")
 
 [node name="give" type="Area2D" parent="."]
 
@@ -34,17 +79,23 @@ shape = SubResource("CircleShape2D_lagax")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="colect"]
 shape = SubResource("CircleShape2D_iuyr3")
 
-[node name="buff" type="Sprite2D" parent="."]
-position = Vector2(0, 13)
-scale = Vector2(0.15, 0.15)
-
 [node name="Label" type="Label" parent="."]
 offset_left = -35.0
-offset_top = -59.0
+offset_top = -115.0
 offset_right = 36.0
-offset_bottom = -36.0
-text = "Berikan"
+offset_bottom = -92.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "Give Buff"
 horizontal_alignment = 1
+
+[node name="buff" type="Sprite2D" parent="."]
+position = Vector2(-12, 29)
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("8_asq2g")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="body_entered" from="give" to="." method="_on_colect_body_entered"]
 [connection signal="body_exited" from="give" to="." method="_on_colect_body_exited"]

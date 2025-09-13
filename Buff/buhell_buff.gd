@@ -13,7 +13,7 @@ func initialize(buff: Buff_Data) -> void:
 
 func _on_timer_timeout() -> void:
 	near_body = near_body.filter(func(body): 
-		return is_instance_valid(body) and body.is_in_group('Enemy')
+		return is_instance_valid(body) and body.is_in_group('enemy')
 	)
 	
 	if near_body.is_empty():
@@ -49,11 +49,11 @@ func shoot(target:CharacterBody2D, start:Marker2D):
 	bul.global_rotation = start.global_rotation
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group('Enemy'):
+	if body.is_in_group("enemy"):
 		near_body.append(body)
 		print("musuh masuk buhell, sekarang isinya " + str(near_body.size()))
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body.is_in_group('Enemy'):
+	if body.is_in_group("enemy"):
 		print("musuh keluar buhell")
 		near_body.erase(body)

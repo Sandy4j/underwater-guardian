@@ -1,13 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://37k68oj0vkfn"]
+[gd_scene load_steps=13 format=3 uid="uid://37k68oj0vkfn"]
 
 [ext_resource type="Script" uid="uid://3wodbns144l0" path="res://Scenes/test.gd" id="1_efk68"]
 [ext_resource type="PackedScene" uid="uid://dbpochnprurhw" path="res://Actor/Knight/Knight.tscn" id="1_gxb1y"]
 [ext_resource type="PackedScene" uid="uid://debt6gawkcwi3" path="res://Actor/player/player.tscn" id="2_0dy5s"]
 [ext_resource type="Script" uid="uid://fkxnfxlr0fy1" path="res://Buff/script/buff_manager.gd" id="4_mma61"]
+[ext_resource type="PackedScene" uid="uid://b0xas4siualyq" path="res://Actor/Enemy/melee.tscn" id="5_rarx8"]
 [ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/script/Buff_Data.gd" id="6_mma61"]
 [ext_resource type="Script" uid="uid://cpcedrujhabx" path="res://Script/buff_spawner.gd" id="9_rxb08"]
 [ext_resource type="Resource" uid="uid://cal4dam2mv30a" path="res://Buff/drop/Radiance.tres" id="10_wjxug"]
 [ext_resource type="Resource" uid="uid://c8ijyncpu8nwm" path="res://Buff/drop/Shuriken.tres" id="11_8d4ee"]
+[ext_resource type="PackedScene" uid="uid://64fqjv555ew5" path="res://Actor/Enemy/meleehantu.tscn" id="11_wjxug"]
 [ext_resource type="Resource" uid="uid://c1ed1rycie0dy" path="res://Buff/drop/BuHell.tres" id="12_3la1u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kq4yt"]
@@ -19,19 +21,12 @@ script = ExtResource("1_efk68")
 [node name="Knight" parent="." groups=["knight"] instance=ExtResource("1_gxb1y")]
 position = Vector2(259, 219)
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource("2_0dy5s")]
-position = Vector2(364, 394)
-
-[node name="Camera2D" type="Camera2D" parent="Player" groups=["Enemy"]]
-position = Vector2(117, -100)
-
-[node name="BuffManager" type="Node2D" parent="Player"]
-position = Vector2(-105, -175)
+[node name="BuffManager" type="Node2D" parent="Knight"]
 script = ExtResource("4_mma61")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Player/BuffManager"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Knight/BuffManager"]
 
-[node name="ProgressBar1" type="ProgressBar" parent="Player/BuffManager/CanvasLayer"]
+[node name="ProgressBar1" type="ProgressBar" parent="Knight/BuffManager/CanvasLayer"]
 modulate = Color(1, 0, 0, 1)
 anchors_preset = 1
 anchor_left = 1.0
@@ -42,7 +37,7 @@ offset_right = -30.0
 offset_bottom = 55.0
 grow_horizontal = 0
 
-[node name="ProgressBar2" type="ProgressBar" parent="Player/BuffManager/CanvasLayer"]
+[node name="ProgressBar2" type="ProgressBar" parent="Knight/BuffManager/CanvasLayer"]
 modulate = Color(0.541176, 0, 1, 1)
 anchors_preset = 1
 anchor_left = 1.0
@@ -53,7 +48,7 @@ offset_right = -30.0
 offset_bottom = 98.0
 grow_horizontal = 0
 
-[node name="ProgressBar3" type="ProgressBar" parent="Player/BuffManager/CanvasLayer"]
+[node name="ProgressBar3" type="ProgressBar" parent="Knight/BuffManager/CanvasLayer"]
 modulate = Color(0.0196078, 0.729412, 0.85098, 1)
 anchors_preset = 1
 anchor_left = 1.0
@@ -63,6 +58,15 @@ offset_top = 116.0
 offset_right = -30.0
 offset_bottom = 143.0
 grow_horizontal = 0
+
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("2_0dy5s")]
+position = Vector2(364, 394)
+
+[node name="Camera2D" type="Camera2D" parent="Player" groups=["Enemy"]]
+position = Vector2(117, -100)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_rarx8")]
+position = Vector2(-783, -604)
 
 [node name="Buff_Spawner" type="Node2D" parent="."]
 position = Vector2(418, 294)
@@ -76,6 +80,10 @@ position = Vector2(289, 69)
 shape = SubResource("RectangleShape2D_kq4yt")
 
 [node name="Timer" type="Timer" parent="Buff_Spawner"]
+wait_time = 2.0
 autostart = true
+
+[node name="CharacterBody2D2" parent="." instance=ExtResource("11_wjxug")]
+position = Vector2(1661, -792)
 
 [connection signal="timeout" from="Buff_Spawner/Timer" to="Buff_Spawner" method="_on_timer_timeout"]

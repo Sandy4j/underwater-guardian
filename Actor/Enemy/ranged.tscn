@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c4er8338rih14" path="res://Actor/Enemy/Scripts/Ranged.gd" id="1_exr1r"]
 [ext_resource type="PackedScene" uid="uid://ckmhp7y7jpsau" path="res://Actor/Enemy/Projectile.tscn" id="2_jtsrd"]
-[ext_resource type="Texture2D" uid="uid://fku66nctx1kc" path="res://Asset/Enemy/2/IMG_1469.png" id="3_4758g"]
+[ext_resource type="Texture2D" uid="uid://bg2w4l7l86bqu" path="res://Asset/Enemy/2/IMG_1469.png" id="3_4758g"]
 [ext_resource type="Texture2D" uid="uid://dn6bshdecsdir" path="res://Asset/Enemy/2/IMG_1470.png" id="4_2iiap"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qurjq"]

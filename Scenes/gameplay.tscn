@@ -1,16 +1,22 @@
-[gd_scene load_steps=16 format=3 uid="uid://dty63rhik8hfj"]
+[gd_scene load_steps=23 format=3 uid="uid://dty63rhik8hfj"]
 
 [ext_resource type="PackedScene" uid="uid://debt6gawkcwi3" path="res://Actor/player/player.tscn" id="1_hf1ha"]
 [ext_resource type="Script" uid="uid://boy4i7nwg0fo4" path="res://Script/gameplay.gd" id="1_puebw"]
 [ext_resource type="Texture2D" uid="uid://0ql7u56myb1k" path="res://Asset/1757672517786.png" id="2_puebw"]
 [ext_resource type="PackedScene" uid="uid://dbpochnprurhw" path="res://Actor/Knight/Knight.tscn" id="2_wbxth"]
-[ext_resource type="Shader" uid="uid://cjx8ia8qfe4t3" path="res://Shader/Underwater Effect.gdshader" id="4_r8bcl"]
+[ext_resource type="Script" uid="uid://fkxnfxlr0fy1" path="res://Buff/script/buff_manager.gd" id="4_decfu"]
+[ext_resource type="Shader" uid="uid://fc1ii2dpsk3r" path="res://Shader/Underwater Effect.gdshader" id="4_r8bcl"]
 [ext_resource type="PackedScene" uid="uid://5mtfnjjpuo7r" path="res://Scenes/gameover.tscn" id="5_ltefv"]
 [ext_resource type="Script" uid="uid://dfhsljbili184" path="res://Script/EnemySpawner.gd" id="5_urrcd"]
 [ext_resource type="Script" uid="uid://b7lkjpij0af1x" path="res://Actor/Enemy/TypeEnemy/EnemyTypeData.gd" id="6_puebw"]
 [ext_resource type="Resource" uid="uid://73pf0mcvatdk" path="res://Actor/Enemy/TypeEnemy/Slime.tres" id="7_5h7oy"]
 [ext_resource type="Resource" uid="uid://bwcvtquhktior" path="res://Actor/Enemy/TypeEnemy/Abyssal.tres" id="8_ltefv"]
 [ext_resource type="Resource" uid="uid://bqigcgr77m48i" path="res://Actor/Enemy/TypeEnemy/Hantu.tres" id="10_5h7oy"]
+[ext_resource type="Script" uid="uid://cpcedrujhabx" path="res://Script/buff_spawner.gd" id="13_p1ih8"]
+[ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/script/Buff_Data.gd" id="14_v2eey"]
+[ext_resource type="Resource" uid="uid://cal4dam2mv30a" path="res://Buff/drop/Radiance.tres" id="15_ifha0"]
+[ext_resource type="Resource" uid="uid://c8ijyncpu8nwm" path="res://Buff/drop/Shuriken.tres" id="16_gb8q7"]
+[ext_resource type="Resource" uid="uid://c1ed1rycie0dy" path="res://Buff/drop/BuHell.tres" id="17_1ff3a"]
 
 [sub_resource type="Gradient" id="Gradient_puebw"]
 interpolation_color_space = 1
@@ -42,6 +48,9 @@ shader_parameter/deep_color = Color(0.02, 0.1, 0.2, 0.9)
 shader_parameter/visibility_range = 0.4
 shader_parameter/sediment_density = 0.2
 shader_parameter/current_strength = 0.03
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kj63f"]
+size = Vector2(3586, 1842)
 
 [node name="Gameplay" type="Node2D"]
 script = ExtResource("1_puebw")
@@ -89,6 +98,9 @@ limit_right = 4320
 limit_bottom = 2430
 limit_smoothed = true
 metadata/_edit_lock_ = true
+
+[node name="Buff_Manager" type="Node2D" parent="Knight"]
+script = ExtResource("4_decfu")
 
 [node name="Player" parent="." instance=ExtResource("1_hf1ha")]
 position = Vector2(1917, 1052)
@@ -156,3 +168,19 @@ metadata/_edit_lock_ = true
 script = ExtResource("5_urrcd")
 enemy_types = Array[ExtResource("6_puebw")]([ExtResource("7_5h7oy"), ExtResource("8_ltefv"), ExtResource("10_5h7oy")])
 metadata/_custom_type_script = "uid://dfhsljbili184"
+
+[node name="Buff_Spawner" type="Node2D" parent="."]
+position = Vector2(2098, 1182)
+script = ExtResource("13_p1ih8")
+Buffs = Array[ExtResource("14_v2eey")]([ExtResource("15_ifha0"), ExtResource("16_gb8q7"), ExtResource("17_1ff3a")])
+
+[node name="Area2D" type="Area2D" parent="Buff_Spawner"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buff_Spawner/Area2D"]
+shape = SubResource("RectangleShape2D_kj63f")
+
+[node name="Timer" type="Timer" parent="Buff_Spawner"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Buff_Spawner/Timer" to="Buff_Spawner" method="_on_timer_timeout"]

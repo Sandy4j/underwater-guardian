@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Buff_Data" load_steps=3 format=3 uid="uid://c8ijyncpu8nwm"]
 
 [ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/script/Buff_Data.gd" id="1_j26si"]
-[ext_resource type="Texture2D" uid="uid://c61itc8uj4k66" path="res://icon.svg" id="2_n0cx2"]
+[ext_resource type="Texture2D" uid="uid://bdbas3i4y6b1p" path="res://Asset/Buff/Buff Air.png" id="2_j26si"]
 
 [resource]
 script = ExtResource("1_j26si")
 name = "Shuriken"
 tipe = 2
-sprite = ExtResource("2_n0cx2")
+sprite = ExtResource("2_j26si")
 damage = 10
-duration = 0
+duration = 5
 metadata/_custom_type_script = "uid://yq3gv7m4sqn6"

@@ -3,6 +3,7 @@ extends Node2D
 @onready var sprite = $Sword/Area2D/CollisionShape2D
 @onready var hurt_bux = $Sword/Area2D
 @onready var anim = $AnimationPlayer
+@onready var sfx = $AudioStreamPlayer2D
 var damage:int
 
 func initialize(buff: Buff_Data) -> void:
@@ -11,9 +12,9 @@ func initialize(buff: Buff_Data) -> void:
 	print("Sword buff aktif")
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("sword memberikan damage " + str(damage))
-	#if body.has_method("take_damage"):
-		#body.take_damage(damage)
+	if body.is_in_group('enemy'):
+		if body.has_method("take_damage"):
+			body.take_damage(damage)
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:

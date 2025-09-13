@@ -1,28 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://cufhgnlex5ek6"]
+[gd_scene load_steps=4 format=3 uid="uid://cufhgnlex5ek6"]
 
 [ext_resource type="Script" uid="uid://d3hu1c53kqddl" path="res://Buff/buhell_projectile.gd" id="1_63tvr"]
+[ext_resource type="Texture2D" uid="uid://dgyj8lcn2tsej" path="res://Asset/Buff/Projectille Panah Ice.png" id="2_8mhxq"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_omu17"]
-radius = 20.0998
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wg00o"]
+radius = 17.0
+height = 146.0
 
 [node name="Area2D" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_63tvr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_omu17")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 8
+[node name="ColorRect" type="TextureRect" parent="."]
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -58.0
+offset_top = -44.0
+offset_right = 2142.0
+offset_bottom = 2156.0
 grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.368627, 0.32549, 1, 0.666667)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_8mhxq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_wg00o")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

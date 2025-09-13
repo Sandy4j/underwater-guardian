@@ -4,9 +4,9 @@ class_name Buff_Manager
 @onready var Sword_buff = preload("res://Buff/sword_buff.tscn")
 @onready var Burn_buff  = preload("res://Buff/burn_buff.tscn")
 @onready var Buhell_buff = preload("res://Buff/buhell_buff.tscn")
-@onready var Sword_Bar =  $CanvasLayer/ProgressBar1
-@onready var Burn_Bar =  $CanvasLayer/ProgressBar2
-@onready var Buhell_Bar =  $CanvasLayer/ProgressBar3
+#@onready var Sword_Bar =  $CanvasLayer/ProgressBar1
+#@onready var Burn_Bar =  $CanvasLayer/ProgressBar2
+#@onready var Buhell_Bar =  $CanvasLayer/ProgressBar3
 var active_buff:Array[Buff_Data]
 var Player:CharacterBody2D
 
@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 
 func handle_Sword_buff(delta:float) -> void:
 	sword_buff_duration += delta
-	Sword_Bar.value = sword_buff_duration
+	#Sword_Bar.value = sword_buff_duration
 	if sword_buff_duration >= sword_buff_max_duration:
 		sword_buff_active = false
 		expired_buff(GlobalSignal.tipe.Murim)
@@ -42,7 +42,7 @@ func handle_Sword_buff(delta:float) -> void:
 
 func handle_Burn_buff(delta:float) -> void:
 	burn_buff_duration += delta
-	Burn_Bar.value = burn_buff_duration
+	#Burn_Bar.value = burn_buff_duration
 	if burn_buff_duration >= burn_buff_max_duration:
 		burn_buff_active = false
 		expired_buff(GlobalSignal.tipe.Radiance)
@@ -51,7 +51,7 @@ func handle_Burn_buff(delta:float) -> void:
 
 func handle_Buhell_buff(delta:float) ->void:
 	buhell_buff_duration += delta
-	Buhell_Bar.value = buhell_buff_duration
+	#Buhell_Bar.value = buhell_buff_duration
 	if buhell_buff_duration >= buhell_buff_max_duration:
 		buhell_buff_active = false
 		expired_buff(GlobalSignal.tipe.KingVon)
@@ -75,7 +75,7 @@ func apply_buff(Buff:Buff_Data):
 			Buff.node = buff
 			active_buff.append(Buff)
 			burn_buff_max_duration = Buff.duration
-			Burn_Bar.max_value = burn_buff_max_duration
+			#Burn_Bar.max_value = burn_buff_max_duration
 			burn_buff_active = true
 		GlobalSignal.tipe.Murim:
 			var buff = Sword_buff.instantiate()
@@ -84,7 +84,7 @@ func apply_buff(Buff:Buff_Data):
 			Buff.node = buff
 			active_buff.append(Buff)
 			sword_buff_max_duration = Buff.duration
-			Sword_Bar.max_value = sword_buff_max_duration
+			#Sword_Bar.max_value = sword_buff_max_duration
 			sword_buff_active = true
 		GlobalSignal.tipe.KingVon:
 			var buff = Buhell_buff.instantiate()
@@ -93,7 +93,7 @@ func apply_buff(Buff:Buff_Data):
 			Buff.node = buff
 			active_buff.append(Buff)
 			buhell_buff_max_duration = Buff.duration
-			Buhell_Bar.max_value = buhell_buff_max_duration
+			#Buhell_Bar.max_value = buhell_buff_max_duration
 			buhell_buff_active = true
 
 func Prolonged_buff(act_buff:Buff_Data, buff:Buff_Data):
@@ -101,16 +101,16 @@ func Prolonged_buff(act_buff:Buff_Data, buff:Buff_Data):
 		GlobalSignal.tipe.Radiance:
 			print("buff bakar numpuk")
 			burn_buff_max_duration += buff.duration
-			Burn_Bar.max_value = burn_buff_max_duration
+			#Burn_Bar.max_value = burn_buff_max_duration
 			print("durasi burn adalah = " + str(burn_buff_max_duration))
 		GlobalSignal.tipe.Murim:
 			print("buff pedang numpuk")
 			sword_buff_max_duration += buff.duration
-			Sword_Bar.max_value = sword_buff_max_duration
+			#Sword_Bar.max_value = sword_buff_max_duration
 		GlobalSignal.tipe.KingVon:
 			print("buff buhell numpuk")
 			buhell_buff_max_duration += buff.duration
-			Buhell_Bar.max_value = buhell_buff_max_duration
+			#Buhell_Bar.max_value = buhell_buff_max_duration
 
 func expired_buff(buff_tipe:GlobalSignal.tipe):
 	for buffs in active_buff:
