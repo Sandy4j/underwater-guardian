@@ -5,8 +5,6 @@ signal game_resumed
 
 var is_paused: bool = false
 @onready var pause_ui: Control = $Pause
-@onready var resume_button: Button =$VBoxContainer/ResumeBtn
-@onready var quit_button: Button =$VBoxContainer/ExitBtn
 
 func _ready():
 	# Set process mode to always so this script continues running when paused

@@ -80,15 +80,17 @@ shape = SubResource("CircleShape2D_lagax")
 shape = SubResource("CircleShape2D_iuyr3")
 
 [node name="Label" type="Label" parent="."]
-offset_left = -35.0
-offset_top = -115.0
-offset_right = 36.0
-offset_bottom = -92.0
+offset_left = -78.0
+offset_top = -150.0
+offset_right = 79.0
+offset_bottom = -84.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 25
 text = "Give Buff"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="buff" type="Sprite2D" parent="."]
 position = Vector2(-12, 29)

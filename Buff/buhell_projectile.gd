@@ -22,7 +22,6 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
-	print("ini body " + body.name + " ini target " + target.name)
 	if body == target:
 		if body.has_method("take_damage"):
 			body.take_damage(damage)

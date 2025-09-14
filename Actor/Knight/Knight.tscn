@@ -31,7 +31,7 @@ enemy_threshold = 0
 [node name="Sprite2d" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_vteif")
-frame_progress = 0.970015
+frame_progress = 0.177009
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_8mwel")

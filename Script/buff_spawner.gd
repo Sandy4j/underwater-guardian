@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var scene = preload("res://Buff/drop/buff_drop.tscn")
 @export var Buffs:Array[Buff_Data]
-@onready var spawn_area = $"../Knight/Area2D"
+@onready var spawn_area: Area2D = $Area2D
 @onready var timer = $Timer
 
 func _on_timer_timeout():

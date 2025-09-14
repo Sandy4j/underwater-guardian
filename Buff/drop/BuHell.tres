@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Buff_Data" load_steps=3 format=3 uid="uid://c1ed1rycie0dy"]
 
 [ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/script/Buff_Data.gd" id="1_bspwy"]
-[ext_resource type="Texture2D" uid="uid://bnqojj6rs3mme" path="res://Asset/Buff/Buff Ice.png" id="2_bspwy"]
+[ext_resource type="Texture2D" uid="uid://b6dlqeoexorhl" path="res://Asset/Buff/Buff Ice.png" id="2_bspwy"]
 
 [resource]
 script = ExtResource("1_bspwy")
 name = "King_Von"
 tipe = 3
 sprite = ExtResource("2_bspwy")
-damage = 15
-duration = 100
+damage = 25
+duration = 15
 metadata/_custom_type_script = "uid://yq3gv7m4sqn6"

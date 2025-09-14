@@ -5,13 +5,9 @@ class_name EnemyTypeData
 @export var type_name: String = ""
 @export var scene: PackedScene
 @export var spawn_weight: float = 1.0
-
-@export_group("Wave Configuration")
-@export var unlock_wave: int = 1
-@export var max_wave: int = 0 # 0 = no limit
-@export var wave_weight_curve: Array[float] = [] # Weight multiplier per wave
-
-@export_group("Pool Settings")
+@export var unlock_time_minutes: float = 0.0  # When this enemy type becomes available
+@export var max_time_minutes: float = 0.0     # When this enemy type stops spawning (0 = no limit)
+@export var time_weight_curve: Array[float] = [] # Weight multiplier per minute interval
 @export var initial_pool_size: int = 10
 @export var max_pool_size: int = 50
 
@@ -24,8 +20,9 @@ class_name EnemyTypeData
 func _init():
 	type_name = "NewEnemyType"
 	spawn_weight = 1.0
-	unlock_wave = 1
-	max_wave = 0
+	unlock_time_minutes = 0.0
+	max_time_minutes = 0.0
+	time_weight_curve = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 	initial_pool_size = 10
 	max_pool_size = 50
 	override_stats = false

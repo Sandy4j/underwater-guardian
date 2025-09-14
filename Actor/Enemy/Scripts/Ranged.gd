@@ -52,10 +52,15 @@ func perform_ranged_attack():
 	can_attack = true
 
 func spawn_homing_projectile():
-	if not projectile_scene or not player:
+	if not player:
 		return
-	
-	var projectile = projectile_scene.instantiate()
-	get_tree().current_scene.add_child(projectile)
-	projectile.global_position = global_position
-	projectile.setup(player, damage)
+
+	# Use ProjectileManager singleton
+	if ProjectileManager:
+		ProjectileManager.spawn_homing_projectile(global_position, player, damage)
+	else:
+		# Fallback method
+		var projectile = projectile_scene.instantiate()
+		get_tree().current_scene.add_child(projectile)
+		projectile.global_position = global_position
+		projectile.setup(player, damage)

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://0ql7u56myb1k" path="res://Asset/1757672517786.png" id="2_puebw"]
 [ext_resource type="PackedScene" uid="uid://dbpochnprurhw" path="res://Actor/Knight/Knight.tscn" id="2_wbxth"]
 [ext_resource type="Script" uid="uid://fkxnfxlr0fy1" path="res://Buff/script/buff_manager.gd" id="4_decfu"]
-[ext_resource type="Shader" uid="uid://dti2oau1nag6f" path="res://Shader/Underwater Effect.gdshader" id="4_r8bcl"]
+[ext_resource type="Shader" uid="uid://c23auj3mbvkr6" path="res://Shader/Underwater Effect.gdshader" id="4_r8bcl"]
 [ext_resource type="PackedScene" uid="uid://5mtfnjjpuo7r" path="res://Scenes/gameover.tscn" id="5_ltefv"]
 [ext_resource type="Script" uid="uid://dfhsljbili184" path="res://Script/EnemySpawner.gd" id="5_urrcd"]
 [ext_resource type="Script" uid="uid://b7lkjpij0af1x" path="res://Actor/Enemy/TypeEnemy/EnemyTypeData.gd" id="6_puebw"]

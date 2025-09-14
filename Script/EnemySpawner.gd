@@ -1,8 +1,6 @@
 extends Node2D
 class_name EnemySpawner
 
-signal wave_started(wave_number: int)
-signal wave_completed(wave_number: int)
 signal enemy_spawned(enemy: BaseEnemy)
 
 # Enemy Type Configuration
@@ -15,17 +13,14 @@ signal enemy_spawned(enemy: BaseEnemy)
 @export var spawn_distance_from_player: float = 250.0
 @export var max_enemies_on_screen: int = 50
 @export var spawn_outside_screen: bool = true
-
-@export_group("Wave Configuration")
 @export var base_spawn_interval: float = 2.0
-@export var enemies_per_wave: int = 10
-@export var wave_difficulty_multiplier: float = 1.2
+@export var min_spawn_interval: float = 0.3
+@export var spawn_rate_increase_per_minute: float = 0.2
 @export var auto_start: bool = true
 
-var current_wave: int = 1
-var enemies_spawned_this_wave: int = 0
 var active_enemies: Array = []
 var is_spawning: bool = false
+var game_time: float = 0.0
 
 var player: Node2D
 var spawn_timer: Timer
@@ -54,6 +49,11 @@ func _ready():
 
 	if auto_start:
 		call_deferred("start_spawning")
+
+func _process(delta):
+	if is_spawning:
+		game_time += delta
+		update_spawn_rate()
 
 func validate_enemy_types():
 	if enemy_types.is_empty():
@@ -119,7 +119,7 @@ func find_player():
 	if player:
 		print("EnemySpawner: Player found: ", player.name)
 	else:
-		print("EnemySpawner: WARNING - No player found! Make sure player is in 'player' group")
+		print("EnemySpawner: WARNING - No player found! Make sure player is in 'knight' group")
 
 func start_spawning():
 	if not player:
@@ -129,38 +129,30 @@ func start_spawning():
 			return
 
 	is_spawning = true
-	start_wave()
+	game_time = 0.0
+	spawn_timer.start()
+	print("EnemySpawner: Time-based spawning started")
 
 func stop_spawning():
 	is_spawning = false
 	spawn_timer.stop()
 
-func start_wave():
-	if not is_spawning:
-		return
+func update_spawn_rate():
+	var minutes_elapsed = game_time / 60.0
+	var rate_multiplier = 1.0 + (minutes_elapsed * spawn_rate_increase_per_minute)
+	var new_interval = base_spawn_interval / rate_multiplier
+	new_interval = max(new_interval, min_spawn_interval)
 
-	enemies_spawned_this_wave = 0
-	wave_started.emit(current_wave)
-	spawn_timer.start()
-	print("EnemySpawner: Wave ", current_wave, " started")
+	spawn_timer.wait_time = new_interval
 
 func _on_spawn_timer_timeout():
 	if not is_spawning:
-		return
-
-	if enemies_spawned_this_wave >= enemies_per_wave:
-		spawn_timer.stop()
-		check_wave_completion()
 		return
 
 	if active_enemies.size() >= max_enemies_on_screen:
 		return
 
 	spawn_random_enemy()
-	enemies_spawned_this_wave += 1
-
-	var new_interval = base_spawn_interval / (1 + (current_wave - 1) * 0.1)
-	spawn_timer.wait_time = max(new_interval, 0.3)
 
 func spawn_random_enemy():
 	if not player:
@@ -183,21 +175,23 @@ func choose_enemy_type() -> EnemyTypeData:
 	if enemy_types.is_empty():
 		return null
 
-	# Filter available enemy types based on wave requirements
+	# Filter available enemy types based on time requirements
 	var available_types: Array[EnemyTypeData] = []
+	var minutes_elapsed = game_time / 60.0
 
 	for enemy_type in enemy_types:
 		if not enemy_type or not enemy_type.scene:
 			continue
 
-		# Check if enemy type is available for this wave
-		if current_wave >= enemy_type.unlock_wave:
-			# Check wave range if specified
-			if enemy_type.max_wave <= 0 or current_wave <= enemy_type.max_wave:
+		# Check if enemy type is available for this time
+		if minutes_elapsed >= enemy_type.unlock_time_minutes:
+			# Check time range if specified
+			var max_minutes = enemy_type.max_time_minutes if enemy_type.max_time_minutes > 0 else 999999.0
+			if minutes_elapsed <= max_minutes:
 				available_types.append(enemy_type)
 
 	if available_types.is_empty():
-		print("EnemySpawner: No available enemy types for wave ", current_wave)
+		print("EnemySpawner: No available enemy types for time ", minutes_elapsed, " minutes")
 		return null
 
 	# Choose based on weights
@@ -210,32 +204,34 @@ func choose_weighted_enemy_type(available_types: Array[EnemyTypeData]) -> EnemyT
 	# Calculate total weight
 	var total_weight = 0.0
 	for enemy_type in available_types:
-		var wave_adjusted_weight = enemy_type.spawn_weight
+		var time_adjusted_weight = enemy_type.spawn_weight
 
-		# Apply wave-based weight modifiers
-		if enemy_type.wave_weight_curve.size() > 0:
-			var curve_index = min(current_wave - 1, enemy_type.wave_weight_curve.size() - 1)
-			wave_adjusted_weight *= enemy_type.wave_weight_curve[curve_index]
+		# Apply time-based weight modifiers
+		if enemy_type.time_weight_curve.size() > 0:
+			var minutes_elapsed = game_time / 60.0
+			var curve_index = min(int(minutes_elapsed), enemy_type.time_weight_curve.size() - 1)
+			time_adjusted_weight *= enemy_type.time_weight_curve[curve_index]
 
-		total_weight += wave_adjusted_weight
+		total_weight += time_adjusted_weight
 
 	# Choose random point in weight range
 	var random_weight = randf() * total_weight
 	var current_weight = 0.0
 
 	for enemy_type in available_types:
-		var wave_adjusted_weight = enemy_type.spawn_weight
-		if enemy_type.wave_weight_curve.size() > 0:
-			var curve_index = min(current_wave - 1, enemy_type.wave_weight_curve.size() - 1)
-			wave_adjusted_weight *= enemy_type.wave_weight_curve[curve_index]
+		var time_adjusted_weight = enemy_type.spawn_weight
+		if enemy_type.time_weight_curve.size() > 0:
+			var minutes_elapsed = game_time / 60.0
+			var curve_index = min(int(minutes_elapsed), enemy_type.time_weight_curve.size() - 1)
+			time_adjusted_weight *= enemy_type.time_weight_curve[curve_index]
 
-		current_weight += wave_adjusted_weight
+		current_weight += time_adjusted_weight
 		if random_weight <= current_weight:
 			return enemy_type
 
 	# Fallback to last enemy type
 	return available_types[-1]
-
+	
 func get_enemy_from_pool(enemy_type_name: String):
 	if enemy_type_name in enemy_pools:
 		return enemy_pools[enemy_type_name].get_object()
@@ -255,14 +251,14 @@ func setup_enemy(enemy, spawn_pos: Vector2, enemy_type_data: EnemyTypeData):
 		if enemy_type_data.base_speed > 0:
 			enemy.move_speed = enemy_type_data.base_speed
 
-	# Scale stats based on wave
-	var wave_multiplier = pow(wave_difficulty_multiplier, current_wave - 1)
-	enemy.max_health *= wave_multiplier
+	# Scale stats based on time elapsed
+	var minutes_elapsed = game_time / 60.0
+	var time_multiplier = 1.0 + (minutes_elapsed * 0.1)  # 10% increase per minute
+	enemy.max_health *= time_multiplier
 	enemy.current_health = enemy.max_health
-	enemy.damage = int(enemy.damage * wave_multiplier)
-	enemy.move_speed *= min(wave_multiplier, 2.0)
+	enemy.damage = int(enemy.damage * time_multiplier)
+	enemy.move_speed *= min(time_multiplier, 2.0)
 
-	# Connect death signal if not already connected
 	if not enemy.enemy_died.is_connected(_on_enemy_died):
 		enemy.enemy_died.connect(_on_enemy_died)
 
@@ -366,7 +362,6 @@ func get_camera_rect() -> Rect2:
 func _on_enemy_died(enemy):
 	active_enemies.erase(enemy)
 	return_enemy_to_pool(enemy)
-	check_wave_completion()
 
 func return_enemy_to_pool(enemy):
 	if enemy.enemy_died.is_connected(_on_enemy_died):
@@ -382,20 +377,6 @@ func return_enemy_to_pool(enemy):
 	if enemy.has_method("reset_state"):
 		enemy.reset_state()
 
-func check_wave_completion():
-	if enemies_spawned_this_wave >= enemies_per_wave and active_enemies.size() == 0:
-		complete_wave()
-
-func complete_wave():
-	wave_completed.emit(current_wave)
-	print("EnemySpawner: Wave ", current_wave, " completed!")
-	current_wave += 1
-
-	await get_tree().create_timer(3.0).timeout
-
-	if is_spawning:
-		start_wave()
-
 func cleanup_all_enemies():
 	for enemy in active_enemies.duplicate():
 		return_enemy_to_pool(enemy)
@@ -410,19 +391,7 @@ func get_pool_status() -> String:
 		status += "Projectiles - Active: %d, Available: %d" % [projectile_pool.get_active_count(), projectile_pool.get_available_count()]
 	return status
 
-
-func _draw():
-	if Engine.is_editor_hint() or not use_boundaries:
-		return
-
-	var rect = Rect2(
-		Vector2(boundary_left, boundary_top),
-		Vector2(boundary_right - boundary_left, boundary_bottom - boundary_top)
-	)
-	draw_rect(rect, Color.RED, false, 2.0)
-
-	var margin_rect = Rect2(
-		Vector2(boundary_left - boundary_margin, boundary_top - boundary_margin),
-		Vector2(boundary_right - boundary_left + boundary_margin * 2, boundary_bottom - boundary_top + boundary_margin * 2)
-	)
-	draw_rect(margin_rect, Color.YELLOW, false, 1.0)
+func get_spawn_info() -> String:
+	var minutes = int(game_time / 60.0)
+	var seconds = int(game_time) % 60
+	return "Time: %02d:%02d | Spawn Rate: %.2fs | Enemies: %d/%d" % [minutes, seconds, spawn_timer.wait_time, active_enemies.size(), max_enemies_on_screen]
