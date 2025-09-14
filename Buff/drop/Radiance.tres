@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Buff_Data" load_steps=3 format=3 uid="uid://cal4dam2mv30a"]
 
 [ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/script/Buff_Data.gd" id="1_reyv4"]
-[ext_resource type="Texture2D" uid="uid://bkwkbp2f36v6g" path="res://Asset/Buff/Buff Api.png" id="2_reyv4"]
+[ext_resource type="Texture2D" uid="uid://bhcwrcxc77feu" path="res://Asset/Buff/Buff Api.png" id="2_reyv4"]
 
 [resource]
 script = ExtResource("1_reyv4")
 name = "Aura_Farm"
 tipe = 1
 sprite = ExtResource("2_reyv4")
-damage = 10
+damage = 25
 duration = 60
 metadata/_custom_type_script = "uid://yq3gv7m4sqn6"

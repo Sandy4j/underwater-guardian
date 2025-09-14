@@ -34,7 +34,7 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	# Get input direction
 	var input_direction = Vector2()
-	
+
 	# Check for input in all four directions
 	if Input.is_action_pressed("right"):
 		input_direction.x += 1
@@ -44,9 +44,15 @@ func _physics_process(delta: float) -> void:
 		input_direction.y += 1
 	if Input.is_action_pressed("up"):
 		input_direction.y -= 1
-	
+
 	if input_direction.length() > 0:
 		input_direction = input_direction.normalized()
+
+		# Flip sprite based on horizontal movement
+		if input_direction.x > 0:
+			state.flip_h = true  # Moving right, flip sprite
+		elif input_direction.x < 0:
+			state.flip_h = false  # Moving left, keep default
 
 	velocity = input_direction * speed
 	move_and_slide()

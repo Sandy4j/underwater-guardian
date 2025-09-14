@@ -7,12 +7,15 @@ signal enemy_damaged(damage: int)
 @export var max_health: float = 100.0
 @export var move_speed: float = 50.0
 @export var damage: int = 10
+@export var damage_interval: float = 1.0  # Time between damage ticks
 
 var current_health: float
 var player: CharacterBody2D
 var is_dead: bool = false
 var is_knockedback: bool = false
 var knockback_timer: float = 0.0
+var player_in_damage_area: bool = false
+var damage_timer: float = 0.0
 
 @onready var sprite: AnimatedSprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -22,6 +25,7 @@ func _ready():
 	current_health = max_health
 	player = get_tree().get_first_node_in_group("knight")
 	damage_area.body_entered.connect(_on_damage_area_entered)
+	damage_area.body_exited.connect(_on_damage_area_exited)
 	sprite.play("run")
 
 func _physics_process(delta):
@@ -32,6 +36,14 @@ func _physics_process(delta):
 		knockback_timer -= delta
 		if knockback_timer <= 0:
 			is_knockedback = false
+
+	# Handle continuous damage
+	if player_in_damage_area:
+		damage_timer -= delta
+		if damage_timer <= 0:
+			if player.has_method("take_damage"):
+				player.take_damage(damage)
+			damage_timer = damage_interval
 
 	if not is_knockedback:
 		move_towards_player(delta)
@@ -85,6 +97,7 @@ func die():
 		return
 
 	is_dead = true
+	player_in_damage_area = false  # Stop damage when dying
 	enemy_died.emit(self)
 
 	# Stop animation and create death effect
@@ -97,7 +110,15 @@ func die():
 
 func _on_damage_area_entered(body):
 	if body.is_in_group("knight"):
-		body.take_damage(damage)
+		player_in_damage_area = true
+		damage_timer = 0.0  # Deal damage immediately
+		if body.has_method("take_damage"):
+			body.take_damage(damage)
+
+func _on_damage_area_exited(body):
+	if body.is_in_group("knight"):
+		player_in_damage_area = false
+		damage_timer = 0.0
 
 func get_distance_to_player() -> float:
 	if player:
@@ -112,3 +133,5 @@ func reset_state():
 	velocity = Vector2.ZERO
 	sprite.flip_h = false
 	sprite.play("run")
+	player_in_damage_area = false
+	damage_timer = 0.0

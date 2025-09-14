@@ -18,11 +18,14 @@
 [ext_resource type="Texture2D" uid="uid://ql258p5mlpn0" path="res://Asset/pause/Main menu aja.png" id="10_1ff3a"]
 [ext_resource type="Resource" uid="uid://cok3mxhhapjal" path="res://Actor/Enemy/TypeEnemy/Hantu.tres" id="10_5h7oy"]
 [ext_resource type="Texture2D" uid="uid://cionqqe4ifv4g" path="res://Asset/pause/Main Menu putihpng.png" id="11_kj63f"]
-[ext_resource type="Script" path="res://Script/buff_spawner.gd" id="13_p1ih8"]
+[ext_resource type="Script" uid="uid://cpcedrujhabx" path="res://Script/buff_spawner.gd" id="13_p1ih8"]
 [ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/script/Buff_Data.gd" id="14_v2eey"]
 [ext_resource type="Resource" uid="uid://cal4dam2mv30a" path="res://Buff/drop/Radiance.tres" id="15_ifha0"]
 [ext_resource type="Resource" uid="uid://c8ijyncpu8nwm" path="res://Buff/drop/Shuriken.tres" id="16_gb8q7"]
 [ext_resource type="Resource" uid="uid://c1ed1rycie0dy" path="res://Buff/drop/BuHell.tres" id="17_1ff3a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kj63f"]
+size = Vector2(3373, 2008)
 
 [sub_resource type="Gradient" id="Gradient_puebw"]
 interpolation_color_space = 1
@@ -55,9 +58,6 @@ shader_parameter/visibility_range = 0.4
 shader_parameter/sediment_density = 0.2
 shader_parameter/current_strength = 0.03
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kj63f"]
-size = Vector2(3586, 1842)
-
 [node name="Gameplay" type="Node2D"]
 script = ExtResource("1_puebw")
 
@@ -67,28 +67,6 @@ position = Vector2(941, 946)
 [node name="Sprite2D" type="Sprite2D" parent="Space"]
 position = Vector2(1219, 269)
 texture = ExtResource("2_puebw")
-
-[node name="ColorRect2" type="ColorRect" parent="Space"]
-offset_right = 650.0
-offset_bottom = 546.0
-
-[node name="ColorRect3" type="ColorRect" parent="Space"]
-offset_left = -1436.0
-offset_top = -463.0
-offset_right = -786.0
-offset_bottom = 83.0
-
-[node name="ColorRect4" type="ColorRect" parent="Space"]
-offset_left = -604.0
-offset_top = -1332.0
-offset_right = 46.0
-offset_bottom = -786.0
-
-[node name="ColorRect5" type="ColorRect" parent="Space"]
-offset_left = 1054.0
-offset_top = -764.0
-offset_right = 1704.0
-offset_bottom = -218.0
 
 [node name="Knight" parent="." groups=["knight"] instance=ExtResource("2_wbxth")]
 position = Vector2(2213, 1207)
@@ -107,6 +85,13 @@ metadata/_edit_lock_ = true
 
 [node name="Buff_Manager" type="Node2D" parent="Knight"]
 script = ExtResource("4_decfu")
+
+[node name="Area2D" type="Area2D" parent="Knight"]
+position = Vector2(-115, -25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Knight/Area2D"]
+position = Vector2(126.5, 36)
+shape = SubResource("RectangleShape2D_kj63f")
 
 [node name="Player" parent="." instance=ExtResource("1_hf1ha")]
 position = Vector2(1917, 1052)
@@ -242,11 +227,6 @@ metadata/_custom_type_script = "uid://dfhsljbili184"
 position = Vector2(2098, 1182)
 script = ExtResource("13_p1ih8")
 Buffs = Array[ExtResource("14_v2eey")]([ExtResource("15_ifha0"), ExtResource("16_gb8q7"), ExtResource("17_1ff3a")])
-
-[node name="Area2D" type="Area2D" parent="Buff_Spawner"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buff_Spawner/Area2D"]
-shape = SubResource("RectangleShape2D_kj63f")
 
 [node name="Timer" type="Timer" parent="Buff_Spawner"]
 wait_time = 2.0

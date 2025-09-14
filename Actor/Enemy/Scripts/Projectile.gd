@@ -49,11 +49,8 @@ func _physics_process(delta):
 	rotation = velocity.angle()
 
 func _on_body_entered(body):
-	if body.is_in_group("player"):
-		if body.has_method("take_damage"):
-			body.take_damage(damage_amount)
-		finish_projectile()
-	elif body.is_in_group("walls"):
+	if body.has_method("take_damage"):
+		body.take_damage(damage_amount)
 		finish_projectile()
 
 func finish_projectile():

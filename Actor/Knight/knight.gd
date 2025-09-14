@@ -51,6 +51,11 @@ func _physics_process(delta):
 		move_and_slide()
 		_check_boundaries()
 
+		if current_direction.x > 0:
+			$Sprite2d.flip_h = true
+		elif current_direction.x < 0:
+			$Sprite2d.flip_h = false
+
 func _check_for_knockback():
 	var space_state = get_world_2d().direct_space_state
 	var enemies_nearby = []

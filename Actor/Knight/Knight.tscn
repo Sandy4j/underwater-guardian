@@ -25,12 +25,13 @@ height = 180.0
 [node name="Knight" type="CharacterBody2D"]
 collision_mask = 11
 script = ExtResource("1_2wcuf")
+max_health = 500.0
 enemy_threshold = 0
 
 [node name="Sprite2d" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_vteif")
-frame_progress = 0.865811
+frame_progress = 0.970015
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_8mwel")
