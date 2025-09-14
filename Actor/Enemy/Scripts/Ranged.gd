@@ -29,10 +29,8 @@ func move_towards_player(delta: float):
 		# Move closer
 		velocity = direction * move_speed
 	elif distance_to_player < min_range:
-		# Move away (kiting behavior)
 		velocity = -direction * move_speed
 	else:
-		# Stay in optimal range, strafe
 		var perpendicular = Vector2(-direction.y, direction.x)
 		velocity = perpendicular * move_speed * 0.5
 	

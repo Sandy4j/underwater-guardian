@@ -7,7 +7,7 @@
 script = ExtResource("1_l7fcl")
 type_name = "Abyssal Leviathan Fragment "
 scene = ExtResource("1_ouq25")
-spawn_weight = 0.3
+spawn_weight = 1.0
 unlock_wave = 1
 max_wave = 0
 wave_weight_curve = Array[float]([])

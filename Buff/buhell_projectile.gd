@@ -14,6 +14,7 @@ func init(t:CharacterBody2D, tc:Vector2, v:int):
 func _physics_process(delta: float) -> void:
 	var direction = (target_coor - global_position).normalized()
 	global_position += direction * speed * delta
+	rotation = direction.angle() + PI/2
 	#if target:
 		#print("target ada namanya " + target.name)
 	if global_position.distance_to(target_coor) < 5.0:

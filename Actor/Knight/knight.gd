@@ -27,6 +27,7 @@ var is_paused: bool = false
 var rng: RandomNumberGenerator
 
 func _ready():
+	$Sprite2d.play("default")
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 	current_health = max_health
@@ -184,7 +185,8 @@ func take_damage(amount: int):
 func die():
 	if is_dead:
 		return
-
+	
+	await get_tree().create_timer(0.5).timeout 
 	is_dead = true
 	knight_died.emit()
 

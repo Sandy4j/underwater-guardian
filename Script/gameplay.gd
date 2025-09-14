@@ -4,25 +4,27 @@ extends Node2D
 @onready var stats_label: Label = $UI/Control/Panel/StatsLabel
 @onready var healthbar: ProgressBar = $UI/Control/HealthBar
 @onready var game_over_ui: Control = $UI/Gameover
+@onready var pause_manager: Control = $UI/Control
 
 var knight: CharacterBody2D
 
 func _ready():
 	spawner.add_to_group("spawner")
 	knight = get_tree().get_first_node_in_group("knight")
-
-	# Hide game over UI initially
 	if game_over_ui:
 		game_over_ui.hide()
-
-	# Start new game and connect signals
 	GameManager.start_new_game()
 
-	# Connect GameManager signals
 	if not GameManager.game_over.is_connected(_on_game_over):
 		GameManager.game_over.connect(_on_game_over)
 	if not GameManager.enemy_defeated.is_connected(_on_enemy_defeated):
 		GameManager.enemy_defeated.connect(_on_enemy_defeated)
+
+	if pause_manager:
+		if not pause_manager.game_paused.is_connected(_on_game_paused):
+			pause_manager.game_paused.connect(_on_game_paused)
+		if not pause_manager.game_resumed.is_connected(_on_game_resumed):
+			pause_manager.game_resumed.connect(_on_game_resumed)
 
 	print("GameManager signals connected")
 
@@ -36,11 +38,9 @@ func _ready():
 		style_healthbar()
 
 func _process(_delta):
-	# Update stats display using singleton
 	if stats_label and not GameManager.is_game_over:
 		stats_label.text = "Time: %s | Enemies: %d" % [GameManager.get_formatted_time(), GameManager.enemies_defeated]
 
-	# Update health display
 	if knight and healthbar:
 		if not knight.is_dead:
 			healthbar.value = knight.current_health
@@ -49,7 +49,6 @@ func _process(_delta):
 			healthbar.value = 0
 
 func style_healthbar():
-	# Create custom StyleBox for background
 	var bg_style = StyleBoxFlat.new()
 	bg_style.bg_color = Color.DARK_RED
 	bg_style.border_width_left = 2
@@ -62,7 +61,6 @@ func style_healthbar():
 	bg_style.corner_radius_bottom_left = 5
 	bg_style.corner_radius_bottom_right = 5
 
-	# Create custom StyleBox for fill
 	var fill_style = StyleBoxFlat.new()
 	fill_style.bg_color = Color.GREEN
 	fill_style.corner_radius_top_left = 3
@@ -70,11 +68,8 @@ func style_healthbar():
 	fill_style.corner_radius_bottom_left = 3
 	fill_style.corner_radius_bottom_right = 3
 
-	# Apply styles to health bar
 	healthbar.add_theme_stylebox_override("background", bg_style)
 	healthbar.add_theme_stylebox_override("fill", fill_style)
-
-	# Optional: Change color based on health percentage
 	healthbar.value_changed.connect(_on_health_changed)
 
 func _on_health_changed(value: float):
@@ -89,14 +84,12 @@ func _on_health_changed(value: float):
 		fill_style.bg_color = Color.RED
 
 func _on_enemy_spawned(enemy):
-	# GameManager handles enemy tracking now
+	# GameManager handles enemy tracking
 	pass
 
 func _on_game_over():
 	print("Game over signal received!")
 	spawner.stop_spawning()
-
-	# Show and update game over UI
 	if game_over_ui:
 		game_over_ui.show()
 		if game_over_ui.has_method("update_stats"):
@@ -110,3 +103,12 @@ func _on_enemy_defeated():
 func _on_knight_damaged(damage: int):
 	# Optional: Add visual feedback for knight taking damage
 	pass
+
+# Optional pause event handlers
+func _on_game_paused():
+	print("Game paused - you could add pause sound effect here")
+	# Optional: Stop background music, show pause overlay effects, etc.
+
+func _on_game_resumed():
+	print("Game resumed - you could add resume sound effect here")
+	# Optional: Resume background music, hide pause effects, etc.

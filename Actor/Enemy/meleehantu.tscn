@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://64fqjv555ew5"]
+[gd_scene load_steps=7 format=3 uid="uid://143sg78mn4dg"]
 
 [ext_resource type="Script" uid="uid://b52xdpiu7aqo7" path="res://Actor/Enemy/Scripts/Melee.gd" id="1_dvjq8"]
 [ext_resource type="Texture2D" uid="uid://c42pj8rejrgw7" path="res://Asset/Enemy/3/IMG_1471.png" id="2_tlbbw"]

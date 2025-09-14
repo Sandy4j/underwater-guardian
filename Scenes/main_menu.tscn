@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://db66udrwcgve6"]
+[gd_scene load_steps=12 format=3 uid="uid://db66udrwcgve6"]
 
 [ext_resource type="Script" uid="uid://dixbvss0wu5l6" path="res://Script/main_menu.gd" id="1_16hvj"]
 [ext_resource type="Texture2D" uid="uid://5fvanw2u0uo6" path="res://Asset/MainMenu/Main Menu.png" id="2_vr1f0"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://bodheeb85u4m4" path="res://Asset/MainMenu/exit putih.png" id="7_m3bi6"]
 [ext_resource type="Texture2D" uid="uid://dulypgqpl7ili" path="res://Asset/MainMenu/exit biru.png" id="8_wyh8j"]
 [ext_resource type="Texture2D" uid="uid://v0biyqg7w1ub" path="res://Asset/Credit/CREDIT RILL.png" id="9_trj04"]
+[ext_resource type="Texture2D" uid="uid://t6vq6lq6jw4i" path="res://Asset/Credit/1757749318380.png" id="10_vr1f0"]
+[ext_resource type="Texture2D" uid="uid://w7o26tyw26r8" path="res://Asset/Credit/1757823322225.png" id="11_t1dhk"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -70,13 +72,13 @@ metadata/_edit_lock_ = true
 
 [node name="CreditPanel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 6.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_lock_ = true
 
 [node name="BG" type="TextureRect" parent="CreditPanel"]
 layout_mode = 0
@@ -85,15 +87,16 @@ offset_bottom = 816.0
 scale = Vector2(0.799305, 0.801235)
 texture = ExtResource("9_trj04")
 expand_mode = 1
-metadata/_edit_lock_ = true
 
 [node name="BackBtn" type="TextureButton" parent="CreditPanel"]
 layout_mode = 0
-offset_left = 800.0
-offset_top = 569.0
-offset_right = 1139.0
-offset_bottom = 635.0
-texture_normal = ExtResource("7_m3bi6")
+offset_left = 34.0
+offset_top = 12.0
+offset_right = 182.0
+offset_bottom = 200.0
+texture_normal = ExtResource("10_vr1f0")
+texture_pressed = ExtResource("11_t1dhk")
+texture_hover = ExtResource("11_t1dhk")
 
 [connection signal="pressed" from="VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditBtn" to="." method="_on_credit_btn_pressed"]

@@ -1,18 +1,24 @@
-[gd_scene load_steps=23 format=3 uid="uid://dty63rhik8hfj"]
+[gd_scene load_steps=29 format=3 uid="uid://dty63rhik8hfj"]
 
 [ext_resource type="PackedScene" uid="uid://debt6gawkcwi3" path="res://Actor/player/player.tscn" id="1_hf1ha"]
 [ext_resource type="Script" uid="uid://boy4i7nwg0fo4" path="res://Script/gameplay.gd" id="1_puebw"]
 [ext_resource type="Texture2D" uid="uid://0ql7u56myb1k" path="res://Asset/1757672517786.png" id="2_puebw"]
 [ext_resource type="PackedScene" uid="uid://dbpochnprurhw" path="res://Actor/Knight/Knight.tscn" id="2_wbxth"]
 [ext_resource type="Script" uid="uid://fkxnfxlr0fy1" path="res://Buff/script/buff_manager.gd" id="4_decfu"]
-[ext_resource type="Shader" uid="uid://fc1ii2dpsk3r" path="res://Shader/Underwater Effect.gdshader" id="4_r8bcl"]
+[ext_resource type="Shader" uid="uid://cjx8ia8qfe4t3" path="res://Shader/Underwater Effect.gdshader" id="4_r8bcl"]
 [ext_resource type="PackedScene" uid="uid://5mtfnjjpuo7r" path="res://Scenes/gameover.tscn" id="5_ltefv"]
 [ext_resource type="Script" uid="uid://dfhsljbili184" path="res://Script/EnemySpawner.gd" id="5_urrcd"]
 [ext_resource type="Script" uid="uid://b7lkjpij0af1x" path="res://Actor/Enemy/TypeEnemy/EnemyTypeData.gd" id="6_puebw"]
 [ext_resource type="Resource" uid="uid://73pf0mcvatdk" path="res://Actor/Enemy/TypeEnemy/Slime.tres" id="7_5h7oy"]
+[ext_resource type="Texture2D" uid="uid://7w4fxli2so4t" path="res://Asset/pause/Pause.png" id="7_ifha0"]
+[ext_resource type="Script" uid="uid://6wtcm1w3k25x" path="res://Script/pause.gd" id="7_kj63f"]
+[ext_resource type="Texture2D" uid="uid://b4hiymey0ejr6" path="res://Asset/pause/Resume aja.png" id="8_gb8q7"]
 [ext_resource type="Resource" uid="uid://bwcvtquhktior" path="res://Actor/Enemy/TypeEnemy/Abyssal.tres" id="8_ltefv"]
-[ext_resource type="Resource" uid="uid://bqigcgr77m48i" path="res://Actor/Enemy/TypeEnemy/Hantu.tres" id="10_5h7oy"]
-[ext_resource type="Script" uid="uid://cpcedrujhabx" path="res://Script/buff_spawner.gd" id="13_p1ih8"]
+[ext_resource type="Texture2D" uid="uid://cw51x4ax3odcd" path="res://Asset/pause/Resume Putih.png" id="9_1ff3a"]
+[ext_resource type="Texture2D" uid="uid://ql258p5mlpn0" path="res://Asset/pause/Main menu aja.png" id="10_1ff3a"]
+[ext_resource type="Resource" uid="uid://cok3mxhhapjal" path="res://Actor/Enemy/TypeEnemy/Hantu.tres" id="10_5h7oy"]
+[ext_resource type="Texture2D" uid="uid://cionqqe4ifv4g" path="res://Asset/pause/Main Menu putihpng.png" id="11_kj63f"]
+[ext_resource type="Script" path="res://Script/buff_spawner.gd" id="13_p1ih8"]
 [ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/script/Buff_Data.gd" id="14_v2eey"]
 [ext_resource type="Resource" uid="uid://cal4dam2mv30a" path="res://Buff/drop/Radiance.tres" id="15_ifha0"]
 [ext_resource type="Resource" uid="uid://c8ijyncpu8nwm" path="res://Buff/drop/Shuriken.tres" id="16_gb8q7"]
@@ -105,14 +111,28 @@ script = ExtResource("4_decfu")
 [node name="Player" parent="." instance=ExtResource("1_hf1ha")]
 position = Vector2(1917, 1052)
 
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Overlay"]
+material = SubResource("ShaderMaterial_1qnfl")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="Control" type="Control" parent="UI"]
 layout_mode = 3
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 107.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_kj63f")
 
 [node name="HealthBar" type="ProgressBar" parent="UI/Control"]
 layout_mode = 1
@@ -149,20 +169,69 @@ offset_bottom = 21.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Gameover" parent="UI" instance=ExtResource("5_ltefv")]
-
-[node name="Overlay" type="CanvasLayer" parent="."]
-layer = 10
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="Overlay"]
-material = SubResource("ShaderMaterial_1qnfl")
+[node name="Pause" type="Control" parent="UI/Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_lock_ = true
+
+[node name="PanelPause" type="Panel" parent="UI/Control/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="TextureRect" parent="UI/Control/Pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_ifha0")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/Pause"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.471
+anchor_top = 0.544
+anchor_right = 0.471
+anchor_bottom = 0.544
+offset_left = -110.592
+offset_top = -111.512
+offset_right = 131.408
+offset_bottom = 69.488
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="ResumeBtn" type="TextureButton" parent="UI/Control/Pause/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("8_gb8q7")
+texture_pressed = ExtResource("9_1ff3a")
+texture_hover = ExtResource("9_1ff3a")
+
+[node name="ExitBtn" type="TextureButton" parent="UI/Control/Pause/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("10_1ff3a")
+texture_pressed = ExtResource("11_kj63f")
+texture_hover = ExtResource("11_kj63f")
+
+[node name="Gameover" parent="UI" instance=ExtResource("5_ltefv")]
+visible = false
 
 [node name="EnemySpawner" type="Node2D" parent="." groups=["spawner"]]
 script = ExtResource("5_urrcd")
@@ -183,4 +252,6 @@ shape = SubResource("RectangleShape2D_kj63f")
 wait_time = 2.0
 autostart = true
 
+[connection signal="pressed" from="UI/Control/Pause/VBoxContainer/ResumeBtn" to="UI/Control" method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="UI/Control/Pause/VBoxContainer/ExitBtn" to="UI/Control" method="_on_exit_btn_pressed"]
 [connection signal="timeout" from="Buff_Spawner/Timer" to="Buff_Spawner" method="_on_timer_timeout"]

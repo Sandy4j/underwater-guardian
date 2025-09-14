@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cusjrlh21ii2k" path="res://Actor/Kucing Hold/IMG_1460.png" id="5_8ku4h"]
 [ext_resource type="Texture2D" uid="uid://d2ii7ep1lhj2k" path="res://Actor/Kucing Hold/IMG_1461.png" id="6_asq2g"]
 [ext_resource type="Texture2D" uid="uid://n5kipgm41map" path="res://Actor/Kucing Hold/IMG_1462.png" id="7_rncu2"]
-[ext_resource type="Texture2D" uid="uid://bnqojj6rs3mme" path="res://Asset/Buff/Buff Ice.png" id="8_asq2g"]
+[ext_resource type="Texture2D" uid="uid://b6dlqeoexorhl" path="res://Asset/Buff/Buff Ice.png" id="8_asq2g"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8ku4h"]
 animations = [{
