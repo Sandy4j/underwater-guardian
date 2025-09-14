@@ -1,13 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://debt6gawkcwi3"]
+[gd_scene load_steps=15 format=3 uid="uid://debt6gawkcwi3"]
 
 [ext_resource type="Script" uid="uid://bsio50uruuqgp" path="res://Actor/player/player.gd" id="1_iuyr3"]
 [ext_resource type="Texture2D" uid="uid://d1xdli4l116gs" path="res://Actor/Kucing Biasa/IMG_1457.png" id="2_1ax3n"]
+[ext_resource type="AudioStream" uid="uid://0eyaq5m853rg" path="res://Asset/Audio/Item Interact/Picking Item.wav" id="2_c4nny"]
+[ext_resource type="AudioStream" uid="uid://b74ccd1js5676" path="res://Asset/Audio/Item Interact/Picking Item2.wav" id="3_13hg2"]
 [ext_resource type="Texture2D" uid="uid://cyaptba1vefk" path="res://Actor/Kucing Biasa/IMG_1458.png" id="3_l0ysg"]
 [ext_resource type="Texture2D" uid="uid://c7igh2lojxs84" path="res://Actor/Kucing Biasa/IMG_1459.png" id="4_77uhk"]
 [ext_resource type="Texture2D" uid="uid://cusjrlh21ii2k" path="res://Actor/Kucing Hold/IMG_1460.png" id="5_8ku4h"]
 [ext_resource type="Texture2D" uid="uid://d2ii7ep1lhj2k" path="res://Actor/Kucing Hold/IMG_1461.png" id="6_asq2g"]
 [ext_resource type="Texture2D" uid="uid://n5kipgm41map" path="res://Actor/Kucing Hold/IMG_1462.png" id="7_rncu2"]
-[ext_resource type="Texture2D" uid="uid://b6dlqeoexorhl" path="res://Asset/Buff/Buff Ice.png" id="8_asq2g"]
+[ext_resource type="Texture2D" uid="uid://bnqojj6rs3mme" path="res://Asset/Buff/Buff Ice.png" id="8_asq2g"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8ku4h"]
 animations = [{
@@ -59,6 +61,7 @@ radius = 80.0062
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 8
 script = ExtResource("1_iuyr3")
+sfxs = Array[AudioStreamWAV]([ExtResource("2_c4nny"), ExtResource("3_13hg2")])
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.1, 0.1)

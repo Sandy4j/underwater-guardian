@@ -22,6 +22,7 @@ func spawn_random_in_area():
 	spawn(spawn_position)
 
 func spawn(coordinate:Vector2):
+	print("spawn buff di " + str(coordinate))
 	var buff = scene.instantiate()
 	var data = Buffs.pick_random()
 	buff.init(data)

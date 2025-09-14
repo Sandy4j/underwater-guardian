@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Buff_Data" load_steps=3 format=3 uid="uid://3owm4skvfrgb"]
+
+[ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/script/Buff_Data.gd" id="1_nmbnp"]
+[ext_resource type="Texture2D" uid="uid://ypmc4e6kokcw" path="res://Asset/Buff/Heal.png" id="2_nujp7"]
+
+[resource]
+script = ExtResource("1_nmbnp")
+name = "Doa ibu"
+tipe = 4
+sprite = ExtResource("2_nujp7")
+damage = 25
+duration = 0
+metadata/_custom_type_script = "uid://yq3gv7m4sqn6"

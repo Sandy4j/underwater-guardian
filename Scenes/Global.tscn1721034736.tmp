@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dam62qp61pjb5"]
+
+[ext_resource type="Script" uid="uid://d1nf1mrhep7c8" path="res://Script/Global_Signal.gd" id="1_6yl2a"]
+
+[node name="Global" type="Node"]
+script = ExtResource("1_6yl2a")
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]

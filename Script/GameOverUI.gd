@@ -13,6 +13,7 @@ func _ready():
 	z_index = 100
 	setup_ui_styling()
 	animate_entrance()
+	Global.play_sfx(1)
 
 func setup_ui_styling():
 	# Setup the background texture to fill the screen
@@ -140,10 +141,12 @@ func animate_stats_update():
 	pulse_tween.parallel().tween_property(enemies_label, "scale", Vector2(1.0, 1.0), 0.4)
 
 func _on_restart_button_pressed() -> void:
+	Global.play_sfx(1)
 	animate_button_press(restart_button)
 	animate_exit("restart")
 
 func _on_quit_button_pressed() -> void:
+	Global.play_sfx(1)
 	animate_button_press(quit_button)
 	animate_exit("quit")
 

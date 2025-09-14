@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dty63rhik8hfj"]
+[gd_scene load_steps=30 format=3 uid="uid://dty63rhik8hfj"]
 
 [ext_resource type="PackedScene" uid="uid://debt6gawkcwi3" path="res://Actor/player/player.tscn" id="1_hf1ha"]
 [ext_resource type="Script" uid="uid://boy4i7nwg0fo4" path="res://Script/gameplay.gd" id="1_puebw"]
@@ -23,6 +23,7 @@
 [ext_resource type="Resource" uid="uid://cal4dam2mv30a" path="res://Buff/drop/Radiance.tres" id="15_ifha0"]
 [ext_resource type="Resource" uid="uid://c8ijyncpu8nwm" path="res://Buff/drop/Shuriken.tres" id="16_gb8q7"]
 [ext_resource type="Resource" uid="uid://c1ed1rycie0dy" path="res://Buff/drop/BuHell.tres" id="17_1ff3a"]
+[ext_resource type="Resource" uid="uid://3owm4skvfrgb" path="res://Buff/drop/Doa_ibu.tres" id="24_icchp"]
 
 [sub_resource type="Gradient" id="Gradient_puebw"]
 interpolation_color_space = 1
@@ -35,7 +36,7 @@ fractal_weighted_strength = 1.0
 cellular_distance_function = 1
 domain_warp_enabled = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r8bcl"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kj63f"]
 seamless = true
 seamless_blend_skirt = 0.448
 color_ramp = SubResource("Gradient_puebw")
@@ -44,7 +45,7 @@ noise = SubResource("FastNoiseLite_kwrm5")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1qnfl"]
 shader = ExtResource("4_r8bcl")
 shader_parameter/water_tint = Color(0.0862745, 0, 0.8, 0.301961)
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_r8bcl")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_kj63f")
 shader_parameter/wave_speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 0.005
 shader_parameter/caustic_strength = 0.429
@@ -219,7 +220,7 @@ metadata/_custom_type_script = "uid://dfhsljbili184"
 [node name="Buff_Spawner" type="Node2D" parent="."]
 position = Vector2(2098, 1182)
 script = ExtResource("13_p1ih8")
-Buffs = Array[ExtResource("14_v2eey")]([ExtResource("15_ifha0"), ExtResource("16_gb8q7"), ExtResource("17_1ff3a")])
+Buffs = Array[ExtResource("14_v2eey")]([ExtResource("15_ifha0"), ExtResource("16_gb8q7"), ExtResource("17_1ff3a"), ExtResource("24_icchp")])
 
 [node name="Timer" type="Timer" parent="Buff_Spawner"]
 wait_time = 2.0

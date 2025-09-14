@@ -16,6 +16,7 @@ func _ready() -> void:
 	state.play("default")
 	cur_buff = null
 	sprite_buff.visible = false
+	Global.play_bgm(0)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("grab"):
@@ -25,10 +26,6 @@ func _input(event: InputEvent) -> void:
 		elif !cur_buff and not collect_buffs.is_empty():
 			print("mengambil buff")
 			grab_buff()
-		else:
-			print("gak ngapa ngapain")
-		if cur_buff:
-			print("hold buff sekarang " + cur_buff.name)
 
 
 func _physics_process(delta: float) -> void:

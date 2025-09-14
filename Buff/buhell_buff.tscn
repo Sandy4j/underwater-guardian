@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cn70yvgruapqf" path="res://Buff/buhell_buff.gd" id="1_pwo3a"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kq4yt"]
-radius = 1084.2
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pwo3a"]
+size = Vector2(1280, 720)
 
 [node name="Bullet_Hell" type="Node2D"]
 script = ExtResource("1_pwo3a")
@@ -13,7 +13,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_kq4yt")
+shape = SubResource("RectangleShape2D_pwo3a")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

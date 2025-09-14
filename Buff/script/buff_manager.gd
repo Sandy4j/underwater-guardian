@@ -95,6 +95,8 @@ func apply_buff(Buff:Buff_Data):
 			buhell_buff_max_duration = Buff.duration
 			#Buhell_Bar.max_value = buhell_buff_max_duration
 			buhell_buff_active = true
+		GlobalSignal.tipe.Doa:
+			GlobalSignal.emit_signal("healing",Buff.damage)
 
 func Prolonged_buff(act_buff:Buff_Data, buff:Buff_Data):
 	match act_buff.tipe:

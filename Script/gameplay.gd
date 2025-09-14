@@ -36,6 +36,8 @@ func _ready():
 
 	if healthbar:
 		style_healthbar()
+	
+	Global.play_bgm(1)
 
 func _process(_delta):
 	if stats_label and not GameManager.is_game_over:
