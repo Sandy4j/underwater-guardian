@@ -55,7 +55,7 @@ func _ready():
 	add_to_group("knight")
 	_choose_new_direction()
 	_choose_random_pattern()
-	GlobalSignal.connect("healing", Callable(self,"heal"))
+	Global.connect("healing", Callable(self,"heal"))
 
 func _physics_process(delta):
 	direction_timer -= delta

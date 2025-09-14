@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var hurt = $Area2D
 @onready var sfx = $AudioStreamPlayer2D
+@onready var anim = $AnimationPlayer
 var body_near:Array[CharacterBody2D]
 var damage 
 

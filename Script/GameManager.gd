@@ -3,6 +3,13 @@ extends Node
 signal game_over
 signal enemy_defeated
 
+enum tipe{
+	Null,
+	Radiance,
+	Murim,
+	KingVon,
+	Doa
+}
 var is_game_over: bool = false
 var start_time: float
 var enemies_defeated: int = 0

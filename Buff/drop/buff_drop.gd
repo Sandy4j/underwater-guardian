@@ -43,3 +43,7 @@ func hide_label():
 	if highlight_tween:
 		highlight_tween.kill()
 	setup_highlight_effect()
+
+
+func _on_timer_timeout() -> void:
+	queue_free()

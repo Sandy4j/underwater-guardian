@@ -22,7 +22,7 @@ var buhell_buff_max_duration:float
 
 func _ready() -> void:
 	Player = get_parent()
-	GlobalSignal.connect("activate_buff", Callable(self,"apply_buff"))
+	Global.connect("activate_buff", Callable(self,"apply_buff"))
 
 func _physics_process(delta: float) -> void:
 	if sword_buff_active:
@@ -37,7 +37,7 @@ func handle_Sword_buff(delta:float) -> void:
 	#Sword_Bar.value = sword_buff_duration
 	if sword_buff_duration >= sword_buff_max_duration:
 		sword_buff_active = false
-		expired_buff(GlobalSignal.tipe.Murim)
+		expired_buff(GameManager.tipe.Murim)
 		sword_buff_duration = 0
 
 func handle_Burn_buff(delta:float) -> void:
@@ -45,7 +45,7 @@ func handle_Burn_buff(delta:float) -> void:
 	#Burn_Bar.value = burn_buff_duration
 	if burn_buff_duration >= burn_buff_max_duration:
 		burn_buff_active = false
-		expired_buff(GlobalSignal.tipe.Radiance)
+		expired_buff(GameManager.tipe.Radiance)
 		burn_buff_duration = 0
 		print("efek burn habis")
 
@@ -54,7 +54,7 @@ func handle_Buhell_buff(delta:float) ->void:
 	#Buhell_Bar.value = buhell_buff_duration
 	if buhell_buff_duration >= buhell_buff_max_duration:
 		buhell_buff_active = false
-		expired_buff(GlobalSignal.tipe.KingVon)
+		expired_buff(GameManager.tipe.KingVon)
 		buhell_buff_duration = 0
 		print("efek buhell habis")
 
@@ -68,7 +68,7 @@ func apply_buff(Buff:Buff_Data):
 				return
 	
 	match Buff.tipe:
-		GlobalSignal.tipe.Radiance:
+		GameManager.tipe.Radiance:
 			var buff = Burn_buff.instantiate()
 			add_child(buff)
 			buff.initialize(Buff) 
@@ -77,7 +77,7 @@ func apply_buff(Buff:Buff_Data):
 			burn_buff_max_duration = Buff.duration
 			#Burn_Bar.max_value = burn_buff_max_duration
 			burn_buff_active = true
-		GlobalSignal.tipe.Murim:
+		GameManager.tipe.Murim:
 			var buff = Sword_buff.instantiate()
 			add_child(buff)
 			buff.initialize(Buff)
@@ -86,7 +86,7 @@ func apply_buff(Buff:Buff_Data):
 			sword_buff_max_duration = Buff.duration
 			#Sword_Bar.max_value = sword_buff_max_duration
 			sword_buff_active = true
-		GlobalSignal.tipe.KingVon:
+		GameManager.tipe.KingVon:
 			var buff = Buhell_buff.instantiate()
 			add_child(buff)
 			buff.initialize(Buff)
@@ -95,26 +95,26 @@ func apply_buff(Buff:Buff_Data):
 			buhell_buff_max_duration = Buff.duration
 			#Buhell_Bar.max_value = buhell_buff_max_duration
 			buhell_buff_active = true
-		GlobalSignal.tipe.Doa:
-			GlobalSignal.emit_signal("healing",Buff.damage)
+		GameManager.tipe.Doa:
+			Global.emit_signal("healing",Buff.damage)
 
 func Prolonged_buff(act_buff:Buff_Data, buff:Buff_Data):
 	match act_buff.tipe:
-		GlobalSignal.tipe.Radiance:
+		GameManager.tipe.Radiance:
 			print("buff bakar numpuk")
 			burn_buff_max_duration += buff.duration
 			#Burn_Bar.max_value = burn_buff_max_duration
 			print("durasi burn adalah = " + str(burn_buff_max_duration))
-		GlobalSignal.tipe.Murim:
+		GameManager.tipe.Murim:
 			print("buff pedang numpuk")
 			sword_buff_max_duration += buff.duration
 			#Sword_Bar.max_value = sword_buff_max_duration
-		GlobalSignal.tipe.KingVon:
+		GameManager.tipe.KingVon:
 			print("buff buhell numpuk")
 			buhell_buff_max_duration += buff.duration
 			#Buhell_Bar.max_value = buhell_buff_max_duration
 
-func expired_buff(buff_tipe:GlobalSignal.tipe):
+func expired_buff(buff_tipe:GameManager.tipe):
 	for buffs in active_buff:
 		if buffs.tipe == buff_tipe:
 			buffs.node.queue_free()

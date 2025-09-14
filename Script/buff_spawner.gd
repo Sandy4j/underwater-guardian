@@ -17,7 +17,7 @@ func spawn_random_in_area():
 	var extents = collision_shape.size / 2
 	var random_x = randf_range(-extents.x, extents.x)
 	var random_y = randf_range(-extents.y, extents.y)
-	var spawn_position = self.global_position + Vector2(random_x,random_y)
+	var spawn_position = self.get_parent().global_position + Vector2(random_x,random_y)
 	
 	spawn(spawn_position)
 
@@ -26,5 +26,5 @@ func spawn(coordinate:Vector2):
 	var buff = scene.instantiate()
 	var data = Buffs.pick_random()
 	buff.init(data)
-	self.add_child(buff)
+	get_tree().current_scene.add_child(buff)
 	buff.global_position = coordinate

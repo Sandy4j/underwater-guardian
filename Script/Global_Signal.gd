@@ -7,13 +7,7 @@ extends Node2D
 signal healing(heal:int)
 signal activate_buff(buff:Buff_Data)
 
-enum tipe{
-	Null,
-	Radiance,
-	Murim,
-	KingVon,
-	Doa
-}
+
 
 func play_sfx(v:int):
 	match v:
@@ -26,9 +20,9 @@ func play_bgm(v:int):
 		0:
 			print("memutar main menu")
 			BGM.stream = bgm_sound.get(v)
-			BGM.play()
+			BGM.play(0)
 			
 		1:
 			BGM.stream = bgm_sound.get(v)
-			BGM.play()
+			BGM.play(0)
 			print("memutar gameplay")

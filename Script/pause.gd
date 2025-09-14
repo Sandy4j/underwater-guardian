@@ -14,7 +14,7 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("pause") and not GameManager.is_game_over:
 		toggle_pause()
-		Global.play_sfx(1)
+		get_parent().get_parent().SFX.play()
 
 func toggle_pause():
 	if is_paused:
@@ -47,10 +47,10 @@ func resume_game():
 
 func _on_resume_btn_pressed() -> void:
 	resume_game()
-	Global.play_sfx(1)
+	get_parent().get_parent().SFX.play()
 
 func _on_exit_btn_pressed() -> void:
-	Global.play_sfx(1)
+	get_parent().get_parent().SFX.play()
 	get_tree().paused = false
 	is_paused = false
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://db66udrwcgve6"]
+[gd_scene load_steps=14 format=3 uid="uid://db66udrwcgve6"]
 
 [ext_resource type="Script" uid="uid://dixbvss0wu5l6" path="res://Script/main_menu.gd" id="1_16hvj"]
 [ext_resource type="Texture2D" uid="uid://5fvanw2u0uo6" path="res://Asset/MainMenu/Main Menu.png" id="2_vr1f0"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://v0biyqg7w1ub" path="res://Asset/Credit/CREDIT RILL.png" id="9_trj04"]
 [ext_resource type="Texture2D" uid="uid://t6vq6lq6jw4i" path="res://Asset/Credit/1757749318380.png" id="10_vr1f0"]
 [ext_resource type="Texture2D" uid="uid://w7o26tyw26r8" path="res://Asset/Credit/1757823322225.png" id="11_t1dhk"]
+[ext_resource type="AudioStream" uid="uid://dx6h130lulvvj" path="res://Asset/Audio/Musik/main menu.wav" id="12_5egv6"]
+[ext_resource type="AudioStream" uid="uid://b3bjgeyv2ugy2" path="res://Asset/Audio/Ui/UI button1.wav" id="13_vtepg"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -97,6 +99,12 @@ offset_bottom = 200.0
 texture_normal = ExtResource("10_vr1f0")
 texture_pressed = ExtResource("11_t1dhk")
 texture_hover = ExtResource("11_t1dhk")
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_5egv6")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_vtepg")
 
 [connection signal="pressed" from="VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditBtn" to="." method="_on_credit_btn_pressed"]

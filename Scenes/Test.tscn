@@ -1,28 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://37k68oj0vkfn"]
+[gd_scene load_steps=11 format=3 uid="uid://37k68oj0vkfn"]
 
+[ext_resource type="Script" uid="uid://b5dho2agkyvl4" path="res://Script/test.gd" id="1_f2nln"]
 [ext_resource type="PackedScene" uid="uid://dbpochnprurhw" path="res://Actor/Knight/Knight.tscn" id="1_gxb1y"]
 [ext_resource type="PackedScene" uid="uid://debt6gawkcwi3" path="res://Actor/player/player.tscn" id="2_0dy5s"]
-[ext_resource type="Script" uid="uid://fkxnfxlr0fy1" path="res://Buff/script/buff_manager.gd" id="4_mma61"]
+[ext_resource type="Script" uid="uid://cpcedrujhabx" path="res://Script/buff_spawner.gd" id="3_ki7sg"]
+[ext_resource type="Script" uid="uid://yq3gv7m4sqn6" path="res://Buff/script/Buff_Data.gd" id="4_rxb08"]
+[ext_resource type="Resource" uid="uid://cal4dam2mv30a" path="res://Buff/drop/Radiance.tres" id="5_kq4yt"]
+[ext_resource type="Resource" uid="uid://c8ijyncpu8nwm" path="res://Buff/drop/Shuriken.tres" id="6_rarx8"]
+[ext_resource type="Resource" uid="uid://c1ed1rycie0dy" path="res://Buff/drop/BuHell.tres" id="7_wjxug"]
+[ext_resource type="Resource" uid="uid://3owm4skvfrgb" path="res://Buff/drop/Doa_ibu.tres" id="8_8d4ee"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxb08"]
+size = Vector2(2080, 1440)
 
 [node name="Test" type="Node2D"]
-
-[node name="Knight" parent="." groups=["knight"] instance=ExtResource("1_gxb1y")]
-position = Vector2(2213, 1207)
-collision_mask = 3
-knockback_force = 1000.0
-enemy_threshold = 1
-
-[node name="Camera2D" type="Camera2D" parent="Knight"]
-zoom = Vector2(0.5, 0.5)
-limit_left = 0
-limit_top = 0
-limit_right = 4320
-limit_bottom = 2430
-limit_smoothed = true
-metadata/_edit_lock_ = true
-
-[node name="Buff_Manager" type="Node2D" parent="Knight"]
-script = ExtResource("4_mma61")
+script = ExtResource("1_f2nln")
 
 [node name="Player" parent="." instance=ExtResource("2_0dy5s")]
 position = Vector2(1917, 1052)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1820, 1043)
+
+[node name="Knight" parent="." instance=ExtResource("1_gxb1y")]
+position = Vector2(1657, 750)
+
+[node name="Buff_Spawner" type="Node2D" parent="Knight"]
+script = ExtResource("3_ki7sg")
+Buffs = Array[ExtResource("4_rxb08")]([ExtResource("5_kq4yt"), ExtResource("6_rarx8"), ExtResource("7_wjxug"), ExtResource("8_8d4ee")])
+
+[node name="Timer" type="Timer" parent="Knight/Buff_Spawner"]
+wait_time = 2.0
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="Knight/Buff_Spawner"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Knight/Buff_Spawner/Area2D"]
+position = Vector2(2, 3)
+shape = SubResource("RectangleShape2D_rxb08")
+
+[connection signal="timeout" from="Knight/Buff_Spawner/Timer" to="Knight/Buff_Spawner" method="_on_timer_timeout"]

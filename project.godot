@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 ProjectileManager="*res://Script/ProjectileManager.gd"
 GameManager="*res://Script/GameManager.gd"
-GlobalSignal="*res://Script/Global_Signal.gd"
 Global="*res://Scenes/Global.tscn"
 
 [display]

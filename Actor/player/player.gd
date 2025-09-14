@@ -16,7 +16,7 @@ func _ready() -> void:
 	state.play("default")
 	cur_buff = null
 	sprite_buff.visible = false
-	Global.play_bgm(0)
+	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("grab"):
@@ -77,7 +77,7 @@ func grab_buff():
 	state.play("holding")
 
 func give_buff(buff:Buff_Data):
-	GlobalSignal.emit_signal("activate_buff",cur_buff)
+	Global.emit_signal("activate_buff",cur_buff)
 	cur_buff = null
 	txt.visible = false
 	state.play("default")

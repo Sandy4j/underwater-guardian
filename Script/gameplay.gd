@@ -5,7 +5,8 @@ extends Node2D
 @onready var healthbar: ProgressBar = $UI/Control/HealthBar
 @onready var game_over_ui: Control = $UI/Gameover
 @onready var pause_manager: Control = $UI/Control
-
+@onready var BGM:AudioStreamPlayer2D = $BGM
+@onready var SFX:AudioStreamPlayer2D = $SFX
 var knight: CharacterBody2D
 
 func _ready():
@@ -36,8 +37,7 @@ func _ready():
 
 	if healthbar:
 		style_healthbar()
-	
-	Global.play_bgm(1)
+	BGM.play()
 
 func _process(_delta):
 	if stats_label and not GameManager.is_game_over:
@@ -49,6 +49,8 @@ func _process(_delta):
 			healthbar.max_value = knight.max_health
 		else:
 			healthbar.value = 0
+	if BGM.playing:
+		print("kontol")
 
 func style_healthbar():
 	var bg_style = StyleBoxFlat.new()
