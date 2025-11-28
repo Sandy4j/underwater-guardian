@@ -9,7 +9,8 @@ extends CharacterBody2D
 
 var collect_buffs:Array[Buff_Drop]
 var near_knight:bool
-var cur_buff:Buff_Data 
+var cur_buff:Buff_Data
+var use_serial_input: bool = true  # Toggle to enable/disable serial control
 
 func _ready() -> void:
 	txt.visible = false
@@ -19,20 +20,30 @@ func _ready() -> void:
 	
 
 func _input(event: InputEvent) -> void:
+	# Check for grab action from keyboard
 	if event.is_action_pressed("grab"):
-		if cur_buff and near_knight:
-			print("memberikan buff")
-			give_buff(cur_buff)
-		elif !cur_buff and not collect_buffs.is_empty():
-			print("mengambil buff")
-			grab_buff()
+		handle_grab_action()
+	
+	# Check for serial button press
+	if use_serial_input and has_node("/root/Serial"):
+		var serial_node = get_node("/root/Serial")
+		if serial_node.is_button_pressed():
+			handle_grab_action()
+
+func handle_grab_action():
+	if cur_buff and near_knight:
+		print("memberikan buff")
+		give_buff(cur_buff)
+	elif !cur_buff and not collect_buffs.is_empty():
+		print("mengambil buff")
+		grab_buff()
 
 
 func _physics_process(delta: float) -> void:
 	# Get input direction
 	var input_direction = Vector2()
 
-	# Check for input in all four directions
+	# Get keyboard input
 	if Input.is_action_pressed("right"):
 		input_direction.x += 1
 	if Input.is_action_pressed("left"):
@@ -41,6 +52,15 @@ func _physics_process(delta: float) -> void:
 		input_direction.y += 1
 	if Input.is_action_pressed("up"):
 		input_direction.y -= 1
+	
+	# Get accelerometer input (if enabled and available)
+	if use_serial_input and has_node("/root/Serial"):
+		var serial_node = get_node("/root/Serial")
+		var serial_direction = serial_node.get_input_direction()
+		
+		# Add or override with serial input
+		if serial_direction.length() > 0:
+			input_direction = serial_direction
 
 	if input_direction.length() > 0:
 		input_direction = input_direction.normalized()
